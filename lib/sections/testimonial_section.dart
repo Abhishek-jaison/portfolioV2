@@ -116,148 +116,178 @@ class _TestimonialSectionState extends State<TestimonialSection> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
-      decoration: BoxDecoration(
-        color: kBackgroundLight.withOpacity(0.5),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          // Left side - Text
-          Expanded(
-            flex: 1,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxWidth < 400) {
+          // Stack vertically: text section, then cards
+          return Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
+            decoration: BoxDecoration(
+              color: kBackgroundLight.withOpacity(0.5),
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const AnimatedText(
-                  text: 'Testimonials',
-                  isHeader: true,
+                _buildSectionText(context),
+                const SizedBox(height: 32),
+                _buildCardsStack(context),
+              ],
+            ),
+          );
+        } else {
+          // Side by side: text section left, cards right
+          return Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
+            decoration: BoxDecoration(
+              color: kBackgroundLight.withOpacity(0.5),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: _buildSectionText(context),
                 ),
-                const SizedBox(height: 24),
-                Text(
-                  'What People Say',
-                  style: GoogleFonts.poppins(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    color: kTextLight,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  'Hear from colleagues and clients about their experience working with me.',
-                  style: GoogleFonts.poppins(
-                    fontSize: 16,
-                    color: kTextLight.withOpacity(0.8),
-                    height: 1.6,
-                  ),
+                const SizedBox(width: 32),
+                Expanded(
+                  flex: 1,
+                  child: _buildCardsStack(context),
                 ),
               ],
             ),
+          );
+        }
+      },
+    );
+  }
+
+  Widget _buildSectionText(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const AnimatedText(
+          text: 'Testimonials',
+          isHeader: true,
+        ),
+        const SizedBox(height: 24),
+        Text(
+          'What People Say',
+          style: GoogleFonts.poppins(
+            fontSize: 32,
+            fontWeight: FontWeight.bold,
+            color: kTextLight,
           ),
-          const SizedBox(width: 32),
-          // Right side - Testimonial Card with Navigation
-          Expanded(
-            flex: 1,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                SizedBox(
-                  height: 400,
-                  child: PageView.builder(
-                    controller: _pageController,
-                    onPageChanged: (index) {
-                      setState(() {
-                        _currentPage = index;
-                      });
-                    },
-                    itemCount: _testimonials.length,
-                    itemBuilder: (context, index) {
-                      final testimonial = _testimonials[index];
-                      return _buildTestimonialCard(testimonial);
-                    },
-                  ),
-                ),
-                // Left Navigation Button
-                Positioned(
-                  left: 0,
-                  child: IconButton(
-                    onPressed: () {
-                      if (_currentPage > 0) {
-                        _pageController.previousPage(
-                          duration: const Duration(milliseconds: 500),
-                          curve: Curves.easeInOut,
-                        );
-                      }
-                    },
-                    icon: Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: kPrimaryColor.withOpacity(0.1),
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        Icons.arrow_back_ios_new,
-                        color: kPrimaryColor,
-                        size: 20,
-                      ),
-                    ),
-                  ),
-                ),
-                // Right Navigation Button
-                Positioned(
-                  right: 0,
-                  child: IconButton(
-                    onPressed: () {
-                      if (_currentPage < _testimonials.length - 1) {
-                        _pageController.nextPage(
-                          duration: const Duration(milliseconds: 500),
-                          curve: Curves.easeInOut,
-                        );
-                      }
-                    },
-                    icon: Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: kPrimaryColor.withOpacity(0.1),
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        Icons.arrow_forward_ios,
-                        color: kPrimaryColor,
-                        size: 20,
-                      ),
-                    ),
-                  ),
-                ),
-                // Page Indicator
-                Positioned(
-                  bottom: 16,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(
-                      _testimonials.length,
-                      (index) => Container(
-                        width: 8,
-                        height: 8,
-                        margin: const EdgeInsets.symmetric(horizontal: 4),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: _currentPage == index
-                              ? kPrimaryColor
-                              : kPrimaryColor.withOpacity(0.3),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+        ),
+        const SizedBox(height: 16),
+        Text(
+          'Hear from colleagues and clients about their experience working with me.',
+          style: GoogleFonts.poppins(
+            fontSize: 16,
+            color: kTextLight.withOpacity(0.8),
+            height: 1.6,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildCardsStack(BuildContext context) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        SizedBox(
+          height: 400,
+          child: PageView.builder(
+            controller: _pageController,
+            onPageChanged: (index) {
+              setState(() {
+                _currentPage = index;
+              });
+            },
+            itemCount: _testimonials.length,
+            itemBuilder: (context, index) {
+              final testimonial = _testimonials[index];
+              return _buildTestimonialCard(testimonial);
+            },
+          ),
+        ),
+        // Left Navigation Button
+        Positioned(
+          left: 0,
+          child: IconButton(
+            onPressed: () {
+              if (_currentPage > 0) {
+                _pageController.previousPage(
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.easeInOut,
+                );
+              }
+            },
+            icon: Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: kPrimaryColor.withOpacity(0.1),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.arrow_back_ios_new,
+                color: kPrimaryColor,
+                size: 20,
+              ),
             ),
           ),
-        ],
-      ),
+        ),
+        // Right Navigation Button
+        Positioned(
+          right: 0,
+          child: IconButton(
+            onPressed: () {
+              if (_currentPage < _testimonials.length - 1) {
+                _pageController.nextPage(
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.easeInOut,
+                );
+              }
+            },
+            icon: Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: kPrimaryColor.withOpacity(0.1),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.arrow_forward_ios,
+                color: kPrimaryColor,
+                size: 20,
+              ),
+            ),
+          ),
+        ),
+        // Page Indicator
+        Positioned(
+          bottom: 16,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: List.generate(
+              _testimonials.length,
+              (index) => Container(
+                width: 8,
+                height: 8,
+                margin: const EdgeInsets.symmetric(horizontal: 4),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: _currentPage == index
+                      ? kPrimaryColor
+                      : kPrimaryColor.withOpacity(0.3),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 

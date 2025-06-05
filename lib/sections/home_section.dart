@@ -43,149 +43,274 @@ class _HomeSectionState extends State<HomeSection> {
       height: screenHeight,
       child: Stack(
         children: [
-          // Video background
-          Positioned.fill(
-            child: _controller.value.isInitialized
-                ? FittedBox(
-                    fit: BoxFit.cover,
-                    child: SizedBox(
-                      width: _controller.value.size.width,
-                      height: _controller.value.size.height,
-                      child: VideoPlayer(_controller),
-                    ),
-                  )
-                : Container(color: Colors.black),
+          // Video Background
+          SizedBox.expand(
+            child: FittedBox(
+              fit: BoxFit.cover,
+              child: SizedBox(
+                width: _controller.value.size?.width ?? 0,
+                height: _controller.value.size?.height ?? 0,
+                child: VideoPlayer(_controller),
+              ),
+            ),
           ),
           // Content
-          Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Mobile Mockup on the left
-                const MobileMockupSection()
-                    .animate()
-                    .fade(duration: 600.ms)
-                    .slideX(begin: -0.3, end: 0),
-                const SizedBox(width: 100),
-                // Profile Card on the right
-                GlassmorphicContainer(
-                  width: 400,
-                  height: 500,
-                  borderRadius: 20,
-                  blur: 20,
-                  alignment: Alignment.center,
-                  border: 2,
-                  linearGradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      Colors.white.withOpacity(0.5),
-                      Colors.white.withOpacity(0.2),
-                    ],
-                  ),
-                  borderGradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      Colors.white.withOpacity(0.5),
-                      Colors.white.withOpacity(0.1),
-                    ],
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const CircleAvatar(
-                        radius: 80,
-                        backgroundImage: NetworkImage(
-                          'https://media.licdn.com/dms/image/v2/D5603AQEg0-zbt8TWdg/profile-displayphoto-shrink_400_400/B56ZYQsEhFGcAg-/0/1744036711625?e=1752710400&v=beta&t=xU8ESTpUCDsDHoy4-SvLlvkMHX9U0iEHOZPCWW-R7Jk',
-                        ),
-                      )
-                          .animate()
-                          .scale(duration: 600.ms)
-                          .fade(duration: 600.ms),
-                      const SizedBox(height: 30),
-                      Text(
-                        'Welcome to My Portfolio',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium
-                            ?.copyWith(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
+          Container(
+            color: Colors.black.withOpacity(0.5),
+            child: Center(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      if (constraints.maxWidth < 800) {
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const MobileMockupSection(),
+                            const SizedBox(height: 80),
+                            GlassmorphicContainer(
+                              width: 350,
+                              height: 450,
+                              borderRadius: 20,
+                              blur: 20,
+                              alignment: Alignment.center,
+                              border: 2,
+                              linearGradient: LinearGradient(
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                                colors: [
+                                  Colors.white.withOpacity(0.2),
+                                  Colors.white.withOpacity(0.05),
+                                ],
+                              ),
+                              borderGradient: LinearGradient(
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                                colors: [
+                                  Colors.white.withOpacity(0.5),
+                                  Colors.white.withOpacity(0.1),
+                                ],
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const CircleAvatar(
+                                    radius: 60,
+                                    backgroundImage: NetworkImage(
+                                      'https://media.licdn.com/dms/image/v2/D5603AQEg0-zbt8TWdg/profile-displayphoto-shrink_400_400/B56ZYQsEhFGcAg-/0/1744036711625?e=1752710400&v=beta&t=xU8ESTpUCDsDHoy4-SvLlvkMHX9U0iEHOZPCWW-R7Jk',
+                                    ),
+                                  )
+                                      .animate()
+                                      .scale(duration: 600.ms)
+                                      .fade(duration: 600.ms),
+                                  const SizedBox(height: 24),
+                                  Text(
+                                    'Welcome to My Portfolio',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall
+                                        ?.copyWith(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                    textAlign: TextAlign.center,
+                                  )
+                                      .animate()
+                                      .fade(duration: 600.ms)
+                                      .slideY(begin: 0.3, end: 0),
+                                  const SizedBox(height: 16),
+                                  AnimatedTextKit(
+                                    animatedTexts: [
+                                      TypewriterAnimatedText(
+                                        'Mobile App\n Developer',
+                                        textStyle: const TextStyle(
+                                          fontSize: 20,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                        speed:
+                                            const Duration(milliseconds: 100),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      TypewriterAnimatedText(
+                                        'Flutter Developer',
+                                        textStyle: const TextStyle(
+                                          fontSize: 20,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                        speed:
+                                            const Duration(milliseconds: 100),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ],
+                                    totalRepeatCount: 1,
+                                    displayFullTextOnTap: true,
+                                    stopPauseOnTap: true,
+                                  ),
+                                  const SizedBox(height: 32),
+                                  Wrap(
+                                    spacing: 20,
+                                    runSpacing: 20,
+                                    alignment: WrapAlignment.center,
+                                    children: [
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          const url =
+                                              'https://drive.google.com/file/d/1v4xAd_fO9mLMiXhugxV-QBYPeEYb0uiW/view?usp=drive_link';
+                                          html.window.open(url, '_blank');
+                                        },
+                                        child: const Text('Download Resume'),
+                                      )
+                                          .animate()
+                                          .fade(duration: 600.ms)
+                                          .slideX(begin: -0.3, end: 0),
+                                      ElevatedButton(
+                                        onPressed: widget.onHireMe,
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.white,
+                                          foregroundColor: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                        ),
+                                        child: const Text('Hire Me'),
+                                      )
+                                          .animate()
+                                          .fade(duration: 600.ms)
+                                          .slideX(begin: 0.3, end: 0),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
-                      )
-                          .animate()
-                          .fade(duration: 600.ms)
-                          .slideY(begin: 0.3, end: 0),
-                      const SizedBox(height: 20),
-                      AnimatedTextKit(
-                        animatedTexts: [
-                          TypewriterAnimatedText(
-                            'Mobile App\n Developer',
-                            textStyle: const TextStyle(
-                              fontSize: 24,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
-                            ),
-                            speed: const Duration(milliseconds: 100),
-                          ),
-                          TypewriterAnimatedText(
-                            'Flutter Developer',
-                            textStyle: const TextStyle(
-                              fontSize: 24,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
-                            ),
-                            speed: const Duration(milliseconds: 100),
-                          ),
-                          // TypewriterAnimatedText(
-                          //   'Problem Solver',
-                          //   textStyle: const TextStyle(
-                          //     fontSize: 24,
-                          //     color: Colors.white,
-                          //     fontWeight: FontWeight.w500,
-                          //   ),
-                          //   speed: const Duration(milliseconds: 100),
-                          // ),
-                        ],
-                        totalRepeatCount: 1,
-                        displayFullTextOnTap: true,
-                        stopPauseOnTap: true,
-                      ),
-                      const SizedBox(height: 40),
-                      Row(
+                          ],
+                        );
+                      }
+                      return Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          ElevatedButton(
-                            onPressed: () {
-                              const url =
-                                  'https://drive.google.com/file/d/1jV6TbQsJwyvah7nNte-0B7v1cM0ALMn4/view?usp=drive_link';
-                              html.window.open(url, '_blank');
-                            },
-                            child: const Text('Download Resume'),
-                          )
-                              .animate()
-                              .fade(duration: 600.ms)
-                              .slideX(begin: -0.3, end: 0),
-                          const SizedBox(width: 20),
-                          ElevatedButton(
-                            onPressed: widget.onHireMe,
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                              foregroundColor:
-                                  Theme.of(context).colorScheme.primary,
+                          const MobileMockupSection(),
+                          const SizedBox(width: 80),
+                          GlassmorphicContainer(
+                            width: 350,
+                            height: 450,
+                            borderRadius: 20,
+                            blur: 20,
+                            alignment: Alignment.center,
+                            border: 2,
+                            linearGradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [
+                                Colors.white.withOpacity(0.2),
+                                Colors.white.withOpacity(0.05),
+                              ],
                             ),
-                            child: const Text('Hire Me'),
-                          )
-                              .animate()
-                              .fade(duration: 600.ms)
-                              .slideX(begin: 0.3, end: 0),
+                            borderGradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [
+                                Colors.white.withOpacity(0.5),
+                                Colors.white.withOpacity(0.1),
+                              ],
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const CircleAvatar(
+                                  radius: 60,
+                                  backgroundImage: NetworkImage(
+                                    'https://media.licdn.com/dms/image/v2/D5603AQEg0-zbt8TWdg/profile-displayphoto-shrink_400_400/B56ZYQsEhFGcAg-/0/1744036711625?e=1752710400&v=beta&t=xU8ESTpUCDsDHoy4-SvLlvkMHX9U0iEHOZPCWW-R7Jk',
+                                  ),
+                                )
+                                    .animate()
+                                    .scale(duration: 600.ms)
+                                    .fade(duration: 600.ms),
+                                const SizedBox(height: 24),
+                                Text(
+                                  'Welcome to My Portfolio',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall
+                                      ?.copyWith(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                  textAlign: TextAlign.center,
+                                )
+                                    .animate()
+                                    .fade(duration: 600.ms)
+                                    .slideY(begin: 0.3, end: 0),
+                                const SizedBox(height: 16),
+                                AnimatedTextKit(
+                                  animatedTexts: [
+                                    TypewriterAnimatedText(
+                                      'Mobile App\n Developer',
+                                      textStyle: const TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                      speed: const Duration(milliseconds: 100),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    TypewriterAnimatedText(
+                                      'Flutter Developer',
+                                      textStyle: const TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                      speed: const Duration(milliseconds: 100),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                  totalRepeatCount: 1,
+                                  displayFullTextOnTap: true,
+                                  stopPauseOnTap: true,
+                                ),
+                                const SizedBox(height: 32),
+                                Wrap(
+                                  spacing: 20,
+                                  runSpacing: 20,
+                                  alignment: WrapAlignment.center,
+                                  children: [
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        const url =
+                                            'https://drive.google.com/file/d/1jV6TbQsJwyvah7nNte-0B7v1cM0ALMn4/view?usp=drive_link';
+                                        html.window.open(url, '_blank');
+                                      },
+                                      child: const Text('Download Resume'),
+                                    )
+                                        .animate()
+                                        .fade(duration: 600.ms)
+                                        .slideX(begin: -0.3, end: 0),
+                                    ElevatedButton(
+                                      onPressed: widget.onHireMe,
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.white,
+                                        foregroundColor: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                      ),
+                                      child: const Text('Hire Me'),
+                                    )
+                                        .animate()
+                                        .fade(duration: 600.ms)
+                                        .slideX(begin: 0.3, end: 0),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
-                      ),
-                    ],
+                      );
+                    },
                   ),
-                ).animate().fade(duration: 600.ms).slideX(begin: 0.3, end: 0),
-              ],
+                ),
+              ),
             ),
           ),
         ],
