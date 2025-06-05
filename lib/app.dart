@@ -8,6 +8,7 @@ import 'sections/contact_section.dart';
 import 'sections/skills_section.dart';
 import 'sections/education_section.dart';
 import 'sections/testimonial_section.dart';
+import 'sections/mobile_mockup_section.dart';
 
 class PortfolioApp extends StatelessWidget {
   const PortfolioApp({Key? key}) : super(key: key);
@@ -119,16 +120,15 @@ class _PortfolioHomeState extends State<PortfolioHome> {
         controller: _scrollController,
         child: Column(
           children: [
-            HomeSection(
-              onHireMe: () => _scrollToSection(7),
-            ),
-            AboutSection(),
-            SkillsSection(),
-            ProjectsSection(),
-            ExperienceSection(),
-            EducationSection(),
-            TestimonialSection(),
-            ContactSection(),
+            const HomeSection(),
+            const AboutSection(),
+            const SkillsSection(),
+            const MobileMockupSection(),
+            const ProjectsSection(),
+            const ExperienceSection(),
+            const EducationSection(),
+            const TestimonialSection(),
+            const ContactSection(),
           ],
         ),
       ),
