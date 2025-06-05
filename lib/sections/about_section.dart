@@ -29,115 +29,32 @@ class AboutSection extends StatelessWidget {
               Center(
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 1200),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Column(
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      if (constraints.maxWidth < 800) {
+                        return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              'Who am I?',
-                              style: GoogleFonts.poppins(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                                color: kPrimaryColor,
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            Text(
-                              'I am a passionate Flutter developer with a strong focus on creating beautiful and functional mobile applications. With expertise in UI/UX design and a keen eye for detail, I strive to deliver exceptional user experiences.',
-                              style: GoogleFonts.poppins(
-                                fontSize: 16,
-                                color: kTextLight,
-                                height: 1.6,
-                              ),
-                            ),
-                            const SizedBox(height: 24),
-                            Text(
-                              'What I do?',
-                              style: GoogleFonts.poppins(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                                color: kPrimaryColor,
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            Text(
-                              'I specialize in developing cross-platform mobile applications using Flutter. My work includes creating intuitive user interfaces, implementing complex features, and ensuring optimal performance across different devices.',
-                              style: GoogleFonts.poppins(
-                                fontSize: 16,
-                                color: kTextLight,
-                                height: 1.6,
-                              ),
-                            ),
-                            const SizedBox(height: 32),
-                            Center(
-                              child: CustomButton(
-                                text: 'View My Work',
-                                onPressed: () {
-                                  final experienceSection = html.document
-                                      .querySelector(
-                                          '[key="experience-section"]');
-                                  if (experienceSection != null) {
-                                    final yOffset = experienceSection
-                                            .getBoundingClientRect()
-                                            .top +
-                                        html.window.scrollY;
-                                    html.window.scrollTo(0, yOffset);
-                                  }
-                                },
-                              ),
-                            ),
+                            _buildAboutContent(context),
+                            const SizedBox(height: 48),
+                            _buildInfoCard(),
                           ],
-                        ),
-                      ),
-                      const SizedBox(width: 48),
-                      Expanded(
-                        child: Container(
-                          padding: const EdgeInsets.all(24),
-                          decoration: BoxDecoration(
-                            color: kCardLight,
-                            borderRadius: BorderRadius.circular(16),
-                            boxShadow: [
-                              BoxShadow(
-                                color: kPrimaryColor.withOpacity(0.1),
-                                blurRadius: 20,
-                                offset: const Offset(0, 10),
-                              ),
-                            ],
+                        );
+                      }
+                      return Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            flex: 2,
+                            child: _buildAboutContent(context),
                           ),
-                          child: Column(
-                            children: [
-                              _buildInfoItem(
-                                icon: Icons.person,
-                                title: 'Name',
-                                value: 'Abhishek Jaison N',
-                              ),
-                              const Divider(height: 32),
-                              _buildInfoItem(
-                                icon: Icons.email,
-                                title: 'Email',
-                                value: 'abhisehkjaison04@gmail.com',
-                              ),
-                              const Divider(height: 32),
-                              _buildInfoItem(
-                                icon: Icons.location_on,
-                                title: 'Location',
-                                value: 'Thrissur, Kerala',
-                              ),
-                              const Divider(height: 32),
-                              _buildInfoItem(
-                                icon: Icons.work,
-                                title: 'Experience',
-                                value: 'Fresher',
-                              ),
-                            ],
+                          const SizedBox(width: 48),
+                          Expanded(
+                            child: _buildInfoCard(),
                           ),
-                        ),
-                      ),
-                    ],
+                        ],
+                      );
+                    },
                   ),
                 ),
               ),
@@ -145,6 +62,108 @@ class AboutSection extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  Widget _buildAboutContent(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Who am I?',
+          style: GoogleFonts.poppins(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: kPrimaryColor,
+          ),
+        ),
+        const SizedBox(height: 16),
+        Text(
+          'I am a passionate Flutter developer with a strong focus on creating beautiful and functional mobile applications. With expertise in UI/UX design and a keen eye for detail, I strive to deliver exceptional user experiences.',
+          style: GoogleFonts.poppins(
+            fontSize: 16,
+            color: kTextLight,
+            height: 1.6,
+          ),
+        ),
+        const SizedBox(height: 24),
+        Text(
+          'What I do?',
+          style: GoogleFonts.poppins(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: kPrimaryColor,
+          ),
+        ),
+        const SizedBox(height: 16),
+        Text(
+          'I specialize in developing cross-platform mobile applications using Flutter. My work includes creating intuitive user interfaces, implementing complex features, and ensuring optimal performance across different devices.',
+          style: GoogleFonts.poppins(
+            fontSize: 16,
+            color: kTextLight,
+            height: 1.6,
+          ),
+        ),
+        const SizedBox(height: 32),
+        Center(
+          child: CustomButton(
+            text: 'View My Work',
+            onPressed: () {
+              final experienceSection =
+                  html.document.querySelector('[key="experience-section"]');
+              if (experienceSection != null) {
+                final yOffset = experienceSection.getBoundingClientRect().top +
+                    html.window.scrollY;
+                html.window.scrollTo(0, yOffset);
+              }
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildInfoCard() {
+    return Container(
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: kCardLight,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: kPrimaryColor.withOpacity(0.1),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          _buildInfoItem(
+            icon: Icons.person,
+            title: 'Name',
+            value: 'Abhishek Jaison N',
+          ),
+          const Divider(height: 32),
+          _buildInfoItem(
+            icon: Icons.email,
+            title: 'Email',
+            value: 'abhisehkjaison04@gmail.com',
+          ),
+          const Divider(height: 32),
+          _buildInfoItem(
+            icon: Icons.location_on,
+            title: 'Location',
+            value: 'Thrissur, Kerala',
+          ),
+          const Divider(height: 32),
+          _buildInfoItem(
+            icon: Icons.work,
+            title: 'Experience',
+            value: 'Fresher',
+          ),
+        ],
+      ),
     );
   }
 
@@ -168,26 +187,28 @@ class AboutSection extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 16),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: GoogleFonts.poppins(
-                fontSize: 14,
-                color: kTextLight.withOpacity(0.7),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: GoogleFonts.poppins(
+                  fontSize: 14,
+                  color: kTextLight.withOpacity(0.7),
+                ),
               ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              value,
-              style: GoogleFonts.poppins(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                color: kTextLight,
+              const SizedBox(height: 4),
+              Text(
+                value,
+                style: GoogleFonts.poppins(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: kTextLight,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ],
     );

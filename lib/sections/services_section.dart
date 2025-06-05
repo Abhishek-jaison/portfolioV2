@@ -72,18 +72,21 @@ class ServicesSection extends StatelessWidget {
             isHeader: true,
           ),
           const SizedBox(height: 48),
-          GridView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 24,
-              mainAxisSpacing: 24,
-              childAspectRatio: 1.2,
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            physics: const BouncingScrollPhysics(),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                for (int i = 0; i < _services.length; i++) ...[
+                  if (i != 0) const SizedBox(width: 24),
+                  SizedBox(
+                    width: 350,
+                    child: _buildServiceCard(_services[i]),
+                  ),
+                ],
+              ],
             ),
-            itemCount: _services.length,
-            itemBuilder: (context, index) =>
-                _buildServiceCard(_services[index]),
           ),
         ],
       ),

@@ -23,25 +23,29 @@ class EducationSection extends StatelessWidget {
             isHeader: true,
           ),
           const SizedBox(height: 48),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _buildEducationCard(
-                title: 'B.Tech',
-                institution: 'Christ College of Engineering',
-                year: '2022 - 2026',
-                details: 'Current CGPA: 8.7',
-                isCurrent: true,
-              ),
-              const SizedBox(width: 24),
-              _buildEducationCard(
-                title: 'Higher Secondary Education',
-                institution: 'Nirmala Matha \nCentral School',
-                year: '2020 - 2022',
-                details: 'Percentage: 93.4% in Computer Science',
-                isCurrent: false,
-              ),
-            ],
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            physics: const BouncingScrollPhysics(),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _buildEducationCard(
+                  title: 'B.Tech',
+                  institution: 'Christ College of Engineering',
+                  year: '2022 - 2026',
+                  details: 'Current CGPA: 8.7',
+                  isCurrent: true,
+                ),
+                const SizedBox(width: 24),
+                _buildEducationCard(
+                  title: 'Higher Secondary Education',
+                  institution: 'Nirmala Matha \nCentral School',
+                  year: '2020 - 2022',
+                  details: 'Percentage: 93.4% in Computer Science',
+                  isCurrent: false,
+                ),
+              ],
+            ),
           ),
         ],
       ),

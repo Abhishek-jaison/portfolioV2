@@ -49,6 +49,7 @@ class ExperienceSection extends StatelessWidget {
         final screenHeight = MediaQuery.of(context).size.height;
         return Container(
           key: const Key('experience-section'),
+          width: double.infinity,
           constraints: BoxConstraints(minHeight: screenHeight),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 48),
           decoration: BoxDecoration(
@@ -61,17 +62,22 @@ class ExperienceSection extends StatelessWidget {
                 isHeader: true,
               ),
               const SizedBox(height: 48),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  for (int i = 0; i < _experiences.length; i++) ...[
-                    if (i != 0) const SizedBox(width: 24),
-                    SizedBox(
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                physics: const BouncingScrollPhysics(),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    for (int i = 0; i < _experiences.length; i++) ...[
+                      if (i != 0) const SizedBox(width: 24),
+                      SizedBox(
                         width: 350,
                         height: 500,
-                        child: _buildExperienceCard(_experiences[i])),
-                  ]
-                ],
+                        child: _buildExperienceCard(_experiences[i]),
+                      ),
+                    ]
+                  ],
+                ),
               ),
             ],
           ),
