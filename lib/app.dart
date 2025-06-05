@@ -73,7 +73,7 @@ class _PortfolioHomeState extends State<PortfolioHome> {
                 ),
                 TextButton(
                   onPressed: () => _scrollToSection(2),
-                  child: const Text('Skills',
+                  child: const Text('Experience',
                       style: TextStyle(color: Colors.white)),
                 ),
                 TextButton(
@@ -83,7 +83,12 @@ class _PortfolioHomeState extends State<PortfolioHome> {
                 ),
                 TextButton(
                   onPressed: () => _scrollToSection(4),
-                  child: const Text('Experience',
+                  child: const Text('Skills',
+                      style: TextStyle(color: Colors.white)),
+                ),
+                TextButton(
+                  onPressed: () => _scrollToSection(7),
+                  child: const Text('Contact',
                       style: TextStyle(color: Colors.white)),
                 ),
               ],
@@ -101,7 +106,7 @@ class _PortfolioHomeState extends State<PortfolioHome> {
                     onTap: () => _scrollToSection(1),
                   ),
                   ListTile(
-                    title: const Text('Skills'),
+                    title: const Text('Experience'),
                     onTap: () => _scrollToSection(2),
                   ),
                   ListTile(
@@ -109,8 +114,12 @@ class _PortfolioHomeState extends State<PortfolioHome> {
                     onTap: () => _scrollToSection(3),
                   ),
                   ListTile(
-                    title: const Text('Experience'),
+                    title: const Text('Skills'),
                     onTap: () => _scrollToSection(4),
+                  ),
+                  ListTile(
+                    title: const Text('Contact'),
+                    onTap: () => _scrollToSection(7),
                   ),
                 ],
               ),

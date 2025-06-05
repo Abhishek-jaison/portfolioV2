@@ -5,12 +5,16 @@ class CustomButton extends StatefulWidget {
   final String text;
   final VoidCallback onPressed;
   final bool isOutlined;
+  final EdgeInsetsGeometry? padding;
+  final TextStyle? textStyle;
 
   const CustomButton({
     super.key,
     required this.text,
     required this.onPressed,
     this.isOutlined = false,
+    this.padding,
+    this.textStyle,
   });
 
   @override
@@ -55,14 +59,16 @@ class _CustomButtonState extends State<CustomButton> {
             onTap: widget.onPressed,
             borderRadius: BorderRadius.circular(30),
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+              padding: widget.padding ??
+                  const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
               child: Text(
                 widget.text,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: widget.isOutlined ? kPrimaryColor : Colors.white,
-                ),
+                style: widget.textStyle ??
+                    TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: widget.isOutlined ? kPrimaryColor : Colors.white,
+                    ),
               ),
             ),
           ),

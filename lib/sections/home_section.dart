@@ -5,6 +5,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 import 'dart:html' as html;
 import 'package:portfolio/sections/mobile_mockup_section.dart';
+import 'package:portfolio/widgets/custom_button.dart';
 
 class HomeSection extends StatefulWidget {
   final VoidCallback? onHireMe;
@@ -155,17 +156,19 @@ class _HomeSectionState extends State<HomeSection> {
                                     runSpacing: 20,
                                     alignment: WrapAlignment.center,
                                     children: [
-                                      ElevatedButton(
+                                      CustomButton(
+                                        text: 'Download Resume',
                                         onPressed: () {
                                           const url =
                                               'https://drive.google.com/file/d/1v4xAd_fO9mLMiXhugxV-QBYPeEYb0uiW/view?usp=drive_link';
                                           html.window.open(url, '_blank');
                                         },
-                                        child: const Text('Download Resume'),
-                                      )
-                                          .animate()
-                                          .fade(duration: 600.ms)
-                                          .slideX(begin: -0.3, end: 0),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 18, vertical: 8),
+                                        textStyle: const TextStyle(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w600),
+                                      ),
                                       ElevatedButton(
                                         onPressed: widget.onHireMe,
                                         style: ElevatedButton.styleFrom(
@@ -276,17 +279,19 @@ class _HomeSectionState extends State<HomeSection> {
                                   runSpacing: 20,
                                   alignment: WrapAlignment.center,
                                   children: [
-                                    ElevatedButton(
+                                    CustomButton(
+                                      text: 'Download Resume',
                                       onPressed: () {
                                         const url =
-                                            'https://drive.google.com/file/d/1jV6TbQsJwyvah7nNte-0B7v1cM0ALMn4/view?usp=drive_link';
+                                            'https://drive.google.com/file/d/1v4xAd_fO9mLMiXhugxV-QBYPeEYb0uiW/view?usp=drive_link';
                                         html.window.open(url, '_blank');
                                       },
-                                      child: const Text('Download Resume'),
-                                    )
-                                        .animate()
-                                        .fade(duration: 600.ms)
-                                        .slideX(begin: -0.3, end: 0),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 18, vertical: 8),
+                                      textStyle: const TextStyle(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w600),
+                                    ),
                                     ElevatedButton(
                                       onPressed: widget.onHireMe,
                                       style: ElevatedButton.styleFrom(
