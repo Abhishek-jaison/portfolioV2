@@ -322,6 +322,10 @@ class LockScreen extends StatelessWidget {
             Colors.black,
           ],
         ),
+        image: const DecorationImage(
+          image: AssetImage('images/lockscreen.jpg'),
+          fit: BoxFit.cover,
+        ),
       ),
       child: Column(
         children: [
@@ -377,7 +381,7 @@ class LockScreen extends StatelessWidget {
           GestureDetector(
             onHorizontalDragUpdate: (details) {
               final newProgress =
-                  (slideProgress + details.delta.dx / 200).clamp(0.0, 1.0);
+                  (slideProgress + details.delta.dx / 100).clamp(0.0, 1.0);
               onSlideUpdate(newProgress);
               if (newProgress >= 1.0) {
                 onUnlock();
@@ -394,37 +398,27 @@ class LockScreen extends StatelessWidget {
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  Container(
-                    width: 200,
-                    height: 2,
-                    color: Colors.white24,
-                  ),
                   Transform.translate(
-                    offset: Offset(slideProgress * 100, 0),
-                    child: Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.2),
-                            blurRadius: 8,
-                            offset: const Offset(0, 2),
+                    offset: Offset(slideProgress * 50, 0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.arrow_forward,
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          'Slide to unlock',
+                          style: GoogleFonts.poppins(
+                            color: Colors.white70,
+                            fontSize: 14,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
-                  if (slideProgress < 1.0)
-                    Text(
-                      'Slide to unlock',
-                      style: GoogleFonts.poppins(
-                        color: Colors.white70,
-                        fontSize: 14,
-                      ),
-                    ),
                 ],
               ),
             ),
@@ -452,14 +446,10 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Colors.blue[300]!,
-            Colors.blue[500]!,
-          ],
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('images/lockscreen.jpg'),
+          fit: BoxFit.cover,
         ),
       ),
       child: Column(
@@ -790,10 +780,10 @@ class TicTacToeApp extends StatefulWidget {
 class _TicTacToeAppState extends State<TicTacToeApp> {
   List<String> _board = List.filled(9, '');
   bool _isXTurn = true;
-  String _winner = '';
+  String? _winner;
 
-  void _onTap(int index) {
-    if (_board[index] == '' && _winner == '') {
+  void _onCellTap(int index) {
+    if (_board[index].isEmpty && _winner == null) {
       setState(() {
         _board[index] = _isXTurn ? 'X' : 'O';
         _isXTurn = !_isXTurn;
@@ -805,31 +795,38 @@ class _TicTacToeAppState extends State<TicTacToeApp> {
   void _checkWinner() {
     // Check rows
     for (int i = 0; i < 9; i += 3) {
-      if (_board[i] != '' &&
+      if (_board[i].isNotEmpty &&
           _board[i] == _board[i + 1] &&
           _board[i] == _board[i + 2]) {
         _winner = _board[i];
         return;
       }
     }
+
     // Check columns
     for (int i = 0; i < 3; i++) {
-      if (_board[i] != '' &&
+      if (_board[i].isNotEmpty &&
           _board[i] == _board[i + 3] &&
           _board[i] == _board[i + 6]) {
         _winner = _board[i];
         return;
       }
     }
+
     // Check diagonals
-    if (_board[0] != '' && _board[0] == _board[4] && _board[0] == _board[8]) {
+    if (_board[0].isNotEmpty &&
+        _board[0] == _board[4] &&
+        _board[0] == _board[8]) {
       _winner = _board[0];
       return;
     }
-    if (_board[2] != '' && _board[2] == _board[4] && _board[2] == _board[6]) {
+    if (_board[2].isNotEmpty &&
+        _board[2] == _board[4] &&
+        _board[2] == _board[6]) {
       _winner = _board[2];
       return;
     }
+
     // Check for draw
     if (!_board.contains('')) {
       _winner = 'Draw';
@@ -840,22 +837,23 @@ class _TicTacToeAppState extends State<TicTacToeApp> {
     setState(() {
       _board = List.filled(9, '');
       _isXTurn = true;
-      _winner = '';
+      _winner = null;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: const Color.fromARGB(255, 43, 42, 42),
       child: Column(
         children: [
-          const SizedBox(height: 40),
+          const SizedBox(height: 30),
           Text(
-            _winner == '' ? 'Tic Tac Toe' : 'Winner: $_winner',
+            'Tic Tac Toe',
             style: GoogleFonts.poppins(
-              fontSize: 24,
+              fontSize: 20,
               fontWeight: FontWeight.bold,
+              color: Colors.grey[200],
             ),
           ),
           const SizedBox(height: 20),
@@ -864,24 +862,20 @@ class _TicTacToeAppState extends State<TicTacToeApp> {
               child: AspectRatio(
                 aspectRatio: 1,
                 child: GridView.builder(
-                  padding: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(16),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
-                    mainAxisSpacing: 10,
-                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 8,
+                    crossAxisSpacing: 8,
                   ),
                   itemCount: 9,
                   itemBuilder: (context, index) {
                     return GestureDetector(
-                      onTap: () => _onTap(index),
+                      onTap: () => _onCellTap(index),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            color: Colors.grey[300]!,
-                            width: 2,
-                          ),
+                          color: const Color.fromARGB(255, 107, 104, 104),
+                          borderRadius: BorderRadius.circular(8),
                         ),
                         child: Center(
                           child: Text(
@@ -890,8 +884,8 @@ class _TicTacToeAppState extends State<TicTacToeApp> {
                               fontSize: 40,
                               fontWeight: FontWeight.bold,
                               color: _board[index] == 'X'
-                                  ? Colors.blue
-                                  : Colors.red,
+                                  ? Colors.blue[300]
+                                  : Colors.red[300],
                             ),
                           ),
                         ),
@@ -902,27 +896,31 @@ class _TicTacToeAppState extends State<TicTacToeApp> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: ElevatedButton(
-              onPressed: _resetGame,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              child: const Text(
-                'Reset Game',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
+          if (_winner != null)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 20),
+              child: Column(
+                children: [
+                  Text(
+                    _winner == 'Draw' ? 'Game Draw!' : 'Player $_winner Wins!',
+                    style: GoogleFonts.poppins(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey[200],
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: _resetGame,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 107, 104, 104),
+                      foregroundColor: Colors.grey[200],
+                    ),
+                    child: const Text('Play Again'),
+                  ),
+                ],
               ),
             ),
-          ),
         ],
       ),
     );
@@ -938,44 +936,55 @@ class SudokuApp extends StatefulWidget {
 }
 
 class _SudokuAppState extends State<SudokuApp> {
-  List<List<int>> _board = List.generate(9, (_) => List.filled(9, 0));
-  List<List<bool>> _isFixed = List.generate(9, (_) => List.filled(9, false));
-  int _selectedRow = -1;
-  int _selectedCol = -1;
+  late List<List<int>> _board;
+  late List<List<bool>> _isFixed;
+  int? _selectedCell;
 
   @override
   void initState() {
     super.initState();
-    _generateSudoku();
+    _initializeBoard();
   }
 
-  void _generateSudoku() {
-    // Simple Sudoku generation (you can make this more complex)
+  void _initializeBoard() {
+    // Initialize with a simple puzzle
+    _board = List.generate(9, (i) => List.generate(9, (j) => 0));
+    _isFixed = List.generate(9, (i) => List.generate(9, (j) => false));
+
+    // Add some fixed numbers
+    _board[0][0] = 5;
+    _board[0][4] = 3;
+    _board[1][2] = 7;
+    _board[2][1] = 9;
+    _board[3][3] = 6;
+    _board[4][4] = 1;
+    _board[5][5] = 8;
+    _board[6][7] = 4;
+    _board[7][8] = 2;
+    _board[8][6] = 3;
+
+    // Mark fixed numbers
     for (int i = 0; i < 9; i++) {
       for (int j = 0; j < 9; j++) {
-        if (i < 3 && j < 3) {
-          _board[i][j] = (i + j + 1) % 9 + 1;
+        if (_board[i][j] != 0) {
           _isFixed[i][j] = true;
         }
       }
     }
   }
 
-  void _onCellTap(int row, int col) {
-    if (!_isFixed[row][col]) {
+  void _selectCell(int index) {
+    if (!_isFixed[index ~/ 9][index % 9]) {
       setState(() {
-        _selectedRow = row;
-        _selectedCol = col;
+        _selectedCell = index;
       });
     }
   }
 
-  void _onNumberPress(int number) {
-    if (_selectedRow != -1 &&
-        _selectedCol != -1 &&
-        !_isFixed[_selectedRow][_selectedCol]) {
+  void _setNumber(int number) {
+    if (_selectedCell != null) {
       setState(() {
-        _board[_selectedRow][_selectedCol] = number;
+        _board[_selectedCell! ~/ 9][_selectedCell! % 9] = number;
       });
     }
   }
@@ -983,7 +992,7 @@ class _SudokuAppState extends State<SudokuApp> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: const Color.fromARGB(255, 43, 42, 42), // Dark background
       child: Column(
         children: [
           const SizedBox(height: 30),
@@ -992,62 +1001,74 @@ class _SudokuAppState extends State<SudokuApp> {
             style: GoogleFonts.poppins(
               fontSize: 20,
               fontWeight: FontWeight.bold,
+              color: Colors.grey[200],
             ),
           ),
           const SizedBox(height: 10),
           Expanded(
-            child: Center(
-              child: AspectRatio(
-                aspectRatio: 1,
-                child: GridView.builder(
-                  padding: const EdgeInsets.all(10),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 9,
-                    mainAxisSpacing: 1,
-                    crossAxisSpacing: 1,
-                  ),
-                  itemCount: 81,
-                  itemBuilder: (context, index) {
-                    final row = index ~/ 9;
-                    final col = index % 9;
-                    final isSelected =
-                        row == _selectedRow && col == _selectedCol;
-                    final isFixed = _isFixed[row][col];
-                    final value = _board[row][col];
+            child: GridView.builder(
+              padding: const EdgeInsets.all(10),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 9,
+                mainAxisSpacing: 1,
+                crossAxisSpacing: 1,
+                childAspectRatio: 1,
+              ),
+              itemCount: 81,
+              itemBuilder: (context, index) {
+                final row = index ~/ 9;
+                final col = index % 9;
+                final isSelected = index == _selectedCell;
+                final isFixed = _isFixed[row][col];
+                final value = _board[row][col];
+                final isBoxBorder = row % 3 == 0 || col % 3 == 0;
 
-                    return GestureDetector(
-                      onTap: () => _onCellTap(row, col),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: isSelected
-                              ? Colors.blue.withOpacity(0.2)
-                              : (row ~/ 3 + col ~/ 3) % 2 == 0
-                                  ? Colors.grey[200]
-                                  : Colors.white,
-                          border: Border.all(
-                            color: Colors.grey[300]!,
-                            width: 0.5,
-                          ),
+                return GestureDetector(
+                  onTap: () => _selectCell(index),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: isSelected
+                          ? Colors.blue.withOpacity(0.1)
+                          : Colors.grey[50],
+                      border: Border(
+                        top: BorderSide(
+                          color: isBoxBorder ? Colors.white : Colors.grey[200]!,
+                          width: isBoxBorder ? 2 : 1,
                         ),
-                        child: Center(
-                          child: Text(
-                            value == 0 ? '' : value.toString(),
-                            style: GoogleFonts.poppins(
-                              fontSize: 16,
-                              fontWeight:
-                                  isFixed ? FontWeight.bold : FontWeight.normal,
-                              color: isFixed ? Colors.black : Colors.blue,
-                            ),
-                          ),
+                        left: BorderSide(
+                          color: isBoxBorder ? Colors.white : Colors.grey[200]!,
+                          width: isBoxBorder ? 2 : 1,
+                        ),
+                        right: BorderSide(
+                          color: col == 8
+                              ? (isBoxBorder ? Colors.white : Colors.grey[200]!)
+                              : Colors.transparent,
+                          width: isBoxBorder ? 2 : 1,
+                        ),
+                        bottom: BorderSide(
+                          color: row == 8
+                              ? (isBoxBorder ? Colors.white : Colors.grey[200]!)
+                              : Colors.transparent,
+                          width: isBoxBorder ? 2 : 1,
                         ),
                       ),
-                    );
-                  },
-                ),
-              ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        value == 0 ? '' : value.toString(),
+                        style: GoogleFonts.poppins(
+                          fontSize: 16,
+                          color: isFixed ? Colors.black : Colors.blue[700],
+                          fontWeight:
+                              isFixed ? FontWeight.bold : FontWeight.normal,
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
             ),
           ),
-          // Number Pad
           Container(
             height: 60,
             padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
@@ -1056,20 +1077,20 @@ class _SudokuAppState extends State<SudokuApp> {
               children: List.generate(
                 9,
                 (index) => GestureDetector(
-                  onTap: () => _onNumberPress(index + 1),
+                  onTap: () => _setNumber(index + 1),
                   child: Container(
                     width: 30,
                     height: 30,
                     decoration: BoxDecoration(
-                      color: Colors.grey[200],
+                      color: const Color.fromARGB(255, 107, 104, 104),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: Center(
                       child: Text(
-                        (index + 1).toString(),
+                        '${index + 1}',
                         style: GoogleFonts.poppins(
                           fontSize: 16,
-                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
                         ),
                       ),
                     ),
@@ -1140,18 +1161,14 @@ class _CalendarAppState extends State<CalendarApp> {
 
   @override
   Widget build(BuildContext context) {
-    // Get the first day of the month
     final firstDayOfMonth = DateTime(_currentDate.year, _currentDate.month, 1);
-    // Get the last day of the month
     final lastDayOfMonth =
         DateTime(_currentDate.year, _currentDate.month + 1, 0);
-    // Get the day of week for the first day (0 = Sunday, 6 = Saturday)
     final firstWeekday = firstDayOfMonth.weekday % 7;
-    // Total number of days in the month
     final daysInMonth = lastDayOfMonth.day;
 
     return Container(
-      color: Colors.white,
+      color: const Color.fromARGB(255, 43, 42, 42),
       child: Column(
         children: [
           const SizedBox(height: 30),
@@ -1160,10 +1177,10 @@ class _CalendarAppState extends State<CalendarApp> {
             style: GoogleFonts.poppins(
               fontSize: 20,
               fontWeight: FontWeight.bold,
+              color: Colors.grey[200],
             ),
           ),
           const SizedBox(height: 10),
-          // Days of week header
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
@@ -1177,7 +1194,7 @@ class _CalendarAppState extends State<CalendarApp> {
                         style: GoogleFonts.poppins(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
-                          color: Colors.grey[600],
+                          color: Colors.grey[400],
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -1195,9 +1212,8 @@ class _CalendarAppState extends State<CalendarApp> {
                 mainAxisSpacing: 8,
                 crossAxisSpacing: 8,
               ),
-              itemCount: 42, // 6 rows * 7 days
+              itemCount: 42,
               itemBuilder: (context, index) {
-                // Calculate the day number
                 final dayNumber = index - firstWeekday + 1;
                 final isCurrentMonth =
                     dayNumber > 0 && dayNumber <= daysInMonth;
@@ -1205,14 +1221,16 @@ class _CalendarAppState extends State<CalendarApp> {
 
                 return Container(
                   decoration: BoxDecoration(
-                    color: isToday ? Colors.blue : Colors.grey[100],
+                    color: isToday
+                        ? const Color.fromARGB(255, 107, 104, 104)
+                        : Colors.transparent,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Center(
                     child: Text(
                       isCurrentMonth ? dayNumber.toString() : '',
                       style: TextStyle(
-                        color: isToday ? Colors.white : Colors.black,
+                        color: isToday ? Colors.grey[200] : Colors.grey[400],
                         fontWeight:
                             isToday ? FontWeight.bold : FontWeight.normal,
                       ),
