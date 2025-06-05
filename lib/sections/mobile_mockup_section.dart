@@ -386,7 +386,7 @@ class LockScreen extends StatelessWidget {
               final newProgress =
                   (slideProgress + details.delta.dx / 100).clamp(0.0, 1.0);
               onSlideUpdate(newProgress);
-              if (newProgress >= 1.0) {
+              if (newProgress >= 0.5) {
                 onUnlock();
               }
             },
