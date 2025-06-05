@@ -38,7 +38,7 @@ class _TestimonialSectionState extends State<TestimonialSection> {
       'linkedinUrl':
           'https://www.linkedin.com/in/abhishek-jaison/details/recommendations/',
       'imageUrl':
-          'https://media.licdn.com/dms/image/v2/D5635AQG8BJfJpO7K_g/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1735052161409?e=1747764000&v=beta&t=751BdUAV_RPx9z4wFYNl1-q9G1hwaE_6R_s1hxwGCoA',
+          'https://media.licdn.com/dms/image/v2/D5635AQG8BJfJpO7K_g/profile-framedphoto-shrink_800_800/profile-framedphoto-shrink_800_800/0/1735052161409?e=1749754800&v=beta&t=Op3xW1HJBd9Xi56RHDZGAsIiPjOwR5vItoNczDKiDO0'
     },
     {
       'name': 'Zaid Sayyed',
@@ -59,8 +59,19 @@ class _TestimonialSectionState extends State<TestimonialSection> {
       'linkedinUrl':
           'https://www.linkedin.com/in/abhishek-jaison/details/recommendations/',
       'imageUrl':
-          'https://media.licdn.com/dms/image/v2/D5635AQH8ukWn1blUNg/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1711175572703?e=1747764000&v=beta&t=lcLJ2vjNO5uwSJrG15CNEEi_P4s3by3zJSiUbG2h6Pk',
+          'https://media.licdn.com/dms/image/v2/D5635AQH8ukWn1blUNg/profile-framedphoto-shrink_800_800/profile-framedphoto-shrink_800_800/0/1711175572703?e=1749754800&v=beta&t=GKpQ_0t90Iz6FIpUOcAxnwu0vW9wofnEiQsYC3I3J8o'
     },
+    {
+      "name": "Malay Agrawal",
+      "position":
+          "CI/CD / Automation / Flutter App + Web Developer / UX-UI / FastAPI / AWS / SQL",
+      "testimonial":
+          "I had the pleasure of working with Abhishek during his internship, where he contributed to the improvement and extension of our Flutter and Dart application. His responsibilities included debugging existing features and implementing new ones, both of which he handled with competence and attention to detail. He was responsive to feedback, eager to learn, and maintained a consistent level of professionalism throughout the internship. I would confidently recommend him for any future opportunity.",
+      "linkedinUrl":
+          "https://www.linkedin.com/in/malay-agrawal/details/recommendations/",
+      "imageUrl":
+          'https://media.licdn.com/dms/image/v2/D5603AQHqe05TOz94Wg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1704280912062?e=1754524800&v=beta&t=lW9jR34gZYNCJL8KdM-QLSDV06BPyqoRD6UP1oI7ub4'
+    }
   ];
 
   @override

@@ -8,34 +8,34 @@ class ExperienceSection extends StatelessWidget {
 
   static final List<Map<String, dynamic>> _experiences = [
     {
-      'title': 'Flutter Developer',
-      'company': 'Fresher',
-      'period': '2024 - Present',
+      'title': 'Flutter Developer Intern',
+      'company': 'Woodesy',
+      'period': '2025 - Present',
       'description': [
-        'Passionate about creating beautiful and functional mobile applications',
-        'Strong foundation in Flutter and Dart programming',
-        'Eager to learn and grow in the field of mobile development',
-        'Focused on delivering high-quality user experiences',
+        'Developed a QR code scanner app to streamline in-app interactions and data retrieval.',
+        'Integrated a chatbot-enabled online cab ticket booking system for enhanced user experience.',
+        'Rebuilt and modernized key UI components to improve usability and visual consistency',
+        'Collaborated with cross-functional teams to implement features aligning with user needs',
       ],
     },
     {
-      'title': 'Flutter Developer',
-      'company': 'Startup Inc.',
-      'period': '2020 - 2022',
+      'title': 'Flutter Developer Intern',
+      'company': 'Propmile LLP',
+      'period': 'Jan- Apr 2025',
       'description': [
-        'Developed and maintained 5+ Flutter applications',
-        'Collaborated with designers to implement pixel-perfect UIs',
+        'Worked as a Flutter Developer intern to enhance a sales support mobile application.',
+        'Implemented new features and optimized existing modules for better performance and usability.',
         'Integrated REST APIs and third-party services',
-        'Implemented state management using Provider and BLoC',
+        'Collaborated with backend and UI/UX teams to ensure smooth functionality and cohesive design.',
       ],
     },
     {
-      'title': 'Junior Mobile Developer',
-      'company': 'Digital Agency',
-      'period': '2019 - 2020',
+      'title': 'Flutter  Developer Intern',
+      'company': 'FSalon',
+      'period': 'Sep - Dec 2024',
       'description': [
-        'Assisted in developing Flutter applications',
-        'Fixed bugs and implemented new features',
+        'Developed and maintained a Flutter-based mobile app for salon appointment booking and consultation.',
+        'Designed custom widgets and UI components to match the brands aesthetic and improve user experience.',
         'Worked with version control systems (Git)',
         'Participated in daily stand-ups and sprint planning',
       ],
@@ -48,6 +48,7 @@ class ExperienceSection extends StatelessWidget {
       builder: (context, constraints) {
         final screenHeight = MediaQuery.of(context).size.height;
         return Container(
+          key: const Key('experience-section'),
           constraints: BoxConstraints(minHeight: screenHeight),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 48),
           decoration: BoxDecoration(
@@ -67,7 +68,7 @@ class ExperienceSection extends StatelessWidget {
                     if (i != 0) const SizedBox(width: 24),
                     SizedBox(
                         width: 350,
-                        height: 430,
+                        height: 500,
                         child: _buildExperienceCard(_experiences[i])),
                   ]
                 ],
@@ -157,26 +158,35 @@ class ExperienceSection extends StatelessWidget {
           const SizedBox(height: 16),
           const Divider(),
           const SizedBox(height: 16),
-          ...(experience['description'] as List<String>).map(
-            (item) => Padding(
-              padding: const EdgeInsets.only(bottom: 8),
-              child: Row(
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(
-                    Icons.arrow_right,
-                    color: kPrimaryColor,
-                    size: 20,
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      item,
-                      style: safeGoogleFont(GoogleFonts.poppins(
-                        fontSize: 14,
-                        color: kTextLight.withOpacity(0.8),
-                        height: 1.5,
-                      )),
+                  ...(experience['description'] as List<String>).map(
+                    (item) => Padding(
+                      padding: const EdgeInsets.only(bottom: 8),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(
+                            Icons.arrow_right,
+                            color: kPrimaryColor,
+                            size: 20,
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Text(
+                              item,
+                              style: safeGoogleFont(GoogleFonts.poppins(
+                                fontSize: 14,
+                                color: kTextLight.withOpacity(0.8),
+                                height: 1.5,
+                              )),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],

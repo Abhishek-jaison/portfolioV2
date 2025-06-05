@@ -12,8 +12,8 @@ class SkillsSection extends StatelessWidget {
       'name': 'Flutter',
       'asset': 'images/icons/flutter.png',
       'description': 'Cross-platform mobile development framework',
-      'proficiency': 'Advanced',
-      'years': '2+',
+      'proficiency': 'Intermediate',
+      'years': '1+',
       'keyPoints': ['State Management', 'UI/UX Design', 'Widget Development']
     },
     {
@@ -25,35 +25,40 @@ class SkillsSection extends StatelessWidget {
       'keyPoints': ['Authentication', 'Cloud Firestore', 'Real-time Database']
     },
     {
-      'name': 'Python',
-      'asset': 'images/icons/python.png',
-      'description': 'High-level programming language',
-      'proficiency': 'Advanced',
-      'years': '3+',
-      'keyPoints': ['Data Analysis', 'Automation', 'Web Development']
+      "name": "Python",
+      "asset": "images/icons/python.png",
+      "description":
+          "High-level programming language used for scripting and problem solving",
+      "proficiency": "Basic",
+      "years": "1+",
+      "keyPoints": [
+        "Fundamentals & Syntax",
+        "Basic Scripting",
+        "Problem Solving"
+      ]
     },
     {
       'name': 'SQL',
       'asset': 'images/icons/sql.png',
       'description': 'Database management and querying',
       'proficiency': 'Intermediate',
-      'years': '2+',
-      'keyPoints': ['Database Design', 'Query Optimization', 'Data Modeling']
+      'years': '1',
+      'keyPoints': ['Database Design', 'Schema Design', 'Query Optimization']
     },
     {
       'name': 'REST API',
       'asset': 'images/icons/rest.png',
       'description': 'API development and integration',
       'proficiency': 'Intermediate',
-      'years': '2+',
-      'keyPoints': ['API Design', 'Integration', 'Documentation']
+      'years': '1',
+      'keyPoints': ['Integration', 'Documentation']
     },
     {
       'name': 'C',
       'asset': 'images/icons/c.png',
       'description': 'System programming language',
       'proficiency': 'Intermediate',
-      'years': '2+',
+      'years': '1',
       'keyPoints': ['System Programming', 'Memory Management', 'Algorithms']
     },
   ];

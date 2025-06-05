@@ -6,6 +6,7 @@ import 'package:portfolio/widgets/custom_button.dart';
 import 'package:portfolio/widgets/animated_border.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:visibility_detector/visibility_detector.dart';
+import 'dart:html' as html;
 
 class ProjectsSection extends StatefulWidget {
   const ProjectsSection({super.key});
@@ -20,31 +21,34 @@ class _ProjectsSectionState extends State<ProjectsSection> {
 
   static final List<Map<String, dynamic>> _projects = [
     {
-      'title': 'E-Commerce App',
+      'title': 'Distractino Free Instagram',
       'description':
-          'A full-featured e-commerce application with real-time inventory management.',
-      'image': 'https://picsum.photos/400/300?random=1',
-      'technologies': ['Flutter', 'Firebase', 'Provider', 'Stripe'],
-      'github': 'https://github.com/yourusername/project1',
-      'demo': 'https://project1-demo.com',
+          'A distraction-free Instagram web app that hides Reels to help users focus on meaningful content.',
+      'image': 'images/insta.jpg',
+      'technologies': ['Flutter', 'WebView', 'JavaScript'],
+      'github': 'https://github.com/Abhishek-jaison/insta-without-reels',
+      'demo':
+          'https://www.linkedin.com/posts/abhishek-jaison_flutter-android-webview-activity-7315242185631715328-6JBN?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEIghjsBrNQUCM_HfrLLu4NYXkPcMZCRxKI',
     },
     {
-      'title': 'Fitness Tracker',
+      'title': 'Chat Bot\n',
       'description':
-          'A comprehensive fitness tracking app with workout plans and progress monitoring.',
-      'image': 'https://picsum.photos/400/300?random=2',
-      'technologies': ['Flutter', 'GetX', 'SQLite', 'Google Fit API'],
-      'github': 'https://github.com/yourusername/project2',
-      'demo': 'https://project2-demo.com',
+          'An AI-powered chatbot app that answers user queries in real time\n',
+      'image': 'images/chatbot.png',
+      'technologies': ['Flutter', 'Gemini'],
+      'github': 'https://github.com/Abhishek-jaison/chatbot',
+      'demo':
+          'https://www.linkedin.com/posts/abhishek-jaison_ai-techinnovation-chatbot-activity-7215075656617877504-ehiI?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEIghjsBrNQUCM_HfrLLu4NYXkPcMZCRxKI',
     },
     {
-      'title': 'Task Management',
+      'title': 'Social Media App\n',
       'description':
-          'A collaborative task management tool with real-time updates and team features.',
-      'image': 'https://picsum.photos/400/300?random=3',
-      'technologies': ['Flutter', 'Bloc', 'Firebase', 'WebRTC'],
-      'github': 'https://github.com/yourusername/project3',
-      'demo': 'https://project3-demo.com',
+          'A social media app enabling users to connect, share posts, and interact in real time.',
+      'image': 'images/socialMedia.jpeg',
+      'technologies': ['Flutter', 'Firebase'],
+      'github': 'https://github.com/Abhishek-jaison/login-page-with-firebase',
+      'demo':
+          'https://www.linkedin.com/posts/abhishek-jaison_flutter-firebase-mobileappdevelopment-activity-7215418092795879424-bdns?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEIghjsBrNQUCM_HfrLLu4NYXkPcMZCRxKI',
     },
   ];
 
@@ -138,22 +142,20 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                 ClipRRect(
                   borderRadius:
                       const BorderRadius.vertical(top: Radius.circular(16)),
-                  child: Image.network(
-                    project['image'] as String,
+                  child: Container(
                     height: 200,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Container(
-                        height: 200,
-                        color: kPrimaryColor.withOpacity(0.1),
-                        child: const Icon(
-                          Icons.image_not_supported,
-                          size: 48,
-                          color: kPrimaryColor,
-                        ),
-                      );
-                    },
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.vertical(
+                        top: Radius.circular(16),
+                      ),
+                      image: DecorationImage(
+                        image: project['image'].toString().startsWith('http')
+                            ? NetworkImage(project['image'] as String)
+                                as ImageProvider
+                            : AssetImage(project['image'] as String),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                 ),
                 Container(
@@ -210,23 +212,25 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                           ),
                           const SizedBox(height: 24),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Expanded(
-                                child: CustomButton(
-                                  text: 'View Code',
-                                  onPressed: () {
-                                    // TODO: Implement GitHub link
-                                  },
-                                ),
+                              CustomButton(
+                                text: 'View Code',
+                                onPressed: () {
+                                  html.window.open(
+                                    project['github'] as String,
+                                    '_blank',
+                                  );
+                                },
                               ),
-                              const SizedBox(width: 16),
-                              Expanded(
-                                child: CustomButton(
-                                  text: 'Live Demo',
-                                  onPressed: () {
-                                    // TODO: Implement demo link
-                                  },
-                                ),
+                              CustomButton(
+                                text: 'Live Demo',
+                                onPressed: () {
+                                  html.window.open(
+                                    project['demo'] as String,
+                                    '_blank',
+                                  );
+                                },
                               ),
                             ],
                           ),

@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/constants.dart';
 import 'package:portfolio/widgets/animated_text.dart';
 import 'dart:async';
+import 'dart:math';
+import 'package:flutter/services.dart';
 
 class MobileMockupSection extends StatefulWidget {
   const MobileMockupSection({super.key});
@@ -286,6 +288,7 @@ class _MobileMockupSectionState extends State<MobileMockupSection>
                   });
                 },
                 onOpenApp: _openApp,
+                apps: _apps,
               ),
           ],
         ),
@@ -434,6 +437,7 @@ class HomeScreen extends StatelessWidget {
   final String currentDate;
   final VoidCallback onLock;
   final Function(int) onOpenApp;
+  final List<Map<String, dynamic>> apps;
 
   const HomeScreen({
     super.key,
@@ -441,6 +445,7 @@ class HomeScreen extends StatelessWidget {
     required this.currentDate,
     required this.onLock,
     required this.onOpenApp,
+    required this.apps,
   });
 
   @override
@@ -513,30 +518,8 @@ class HomeScreen extends StatelessWidget {
                 crossAxisSpacing: 16,
                 childAspectRatio: 1.2,
               ),
-              itemCount: 4,
+              itemCount: apps.length,
               itemBuilder: (context, index) {
-                final apps = [
-                  {
-                    'name': 'Calculator',
-                    'icon': Icons.calculate,
-                    'color': Colors.orange,
-                  },
-                  {
-                    'name': 'Tic Tac Toe',
-                    'icon': Icons.grid_3x3,
-                    'color': Colors.green,
-                  },
-                  {
-                    'name': 'Sudoku',
-                    'icon': Icons.grid_4x4,
-                    'color': Colors.purple,
-                  },
-                  {
-                    'name': 'Calendar',
-                    'icon': Icons.calendar_today,
-                    'color': Colors.red,
-                  },
-                ];
                 return GestureDetector(
                   onTap: () => onOpenApp(index),
                   child: Column(
@@ -597,11 +580,11 @@ class HomeScreen extends StatelessWidget {
                     color: Colors.white,
                     size: 24,
                   ),
-                  onPressed: () {}, // No action needed on home screen
+                  onPressed: onLock,
                 ),
                 // Home button
                 GestureDetector(
-                  onTap: () {}, // No action needed on home screen
+                  onTap: onLock,
                   child: Container(
                     width: 40,
                     height: 40,
@@ -618,7 +601,7 @@ class HomeScreen extends StatelessWidget {
                     color: Colors.white,
                     size: 24,
                   ),
-                  onPressed: () {}, // No action needed on home screen
+                  onPressed: onLock,
                 ),
               ],
             ),

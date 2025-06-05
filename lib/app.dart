@@ -122,10 +122,12 @@ class _PortfolioHomeState extends State<PortfolioHome> {
           children: [
             const HomeSection(),
             const AboutSection(),
-            const SkillsSection(),
-            const MobileMockupSection(),
-            const ProjectsSection(),
             const ExperienceSection(),
+
+            const ProjectsSection(),
+
+            const SkillsSection(),
+            // const MobileMockupSection(),
             const EducationSection(),
             const TestimonialSection(),
             const ContactSection(),

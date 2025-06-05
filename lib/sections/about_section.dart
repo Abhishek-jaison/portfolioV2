@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/constants.dart';
 import 'package:portfolio/widgets/animated_text.dart';
 import 'package:portfolio/widgets/custom_button.dart';
+import 'dart:html' as html;
 
 class AboutSection extends StatelessWidget {
   const AboutSection({super.key});
@@ -76,7 +77,16 @@ class AboutSection extends StatelessWidget {
                               child: CustomButton(
                                 text: 'View My Work',
                                 onPressed: () {
-                                  // TODO: Implement scroll to projects section
+                                  final experienceSection = html.document
+                                      .querySelector(
+                                          '[key="experience-section"]');
+                                  if (experienceSection != null) {
+                                    final yOffset = experienceSection
+                                            .getBoundingClientRect()
+                                            .top +
+                                        html.window.scrollY;
+                                    html.window.scrollTo(0, yOffset);
+                                  }
                                 },
                               ),
                             ),
