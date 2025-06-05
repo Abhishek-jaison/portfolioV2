@@ -21,12 +21,14 @@ class _MobileMockupSectionState extends State<MobileMockupSection>
   late Timer _timer;
   late String _currentTime;
   late String _currentDate;
+  bool _isLocked = true;
+  double _slideProgress = 0.0;
 
   final List<Map<String, dynamic>> _apps = [
     {
       'name': 'Calculator',
       'icon': Icons.calculate,
-      'color': Colors.blue,
+      'color': Colors.orange,
       'widget': const CalculatorApp(),
     },
     {
@@ -38,7 +40,7 @@ class _MobileMockupSectionState extends State<MobileMockupSection>
     {
       'name': 'Sudoku',
       'icon': Icons.grid_4x4,
-      'color': Colors.orange,
+      'color': Colors.purple,
       'widget': const SudokuApp(),
     },
     {
@@ -158,180 +160,297 @@ class _MobileMockupSectionState extends State<MobileMockupSection>
     });
   }
 
+  void _unlockPhone() {
+    setState(() {
+      _isLocked = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 80),
-      color: kBackgroundLight,
-      child: Column(
-        children: [
-          const AnimatedText(
-            text: 'Interactive Apps',
-            isHeader: true,
-          ),
-          const SizedBox(height: 40),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Phone Frame
-              Container(
-                width: 300,
-                height: 600,
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(40),
-                  border: Border.all(color: Colors.grey[800]!, width: 8),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.3),
-                      blurRadius: 20,
-                      spreadRadius: 5,
+      width: 300,
+      height: 600,
+      decoration: BoxDecoration(
+        color: Colors.black,
+        borderRadius: BorderRadius.circular(40),
+        border: Border.all(color: Colors.grey[800]!, width: 2),
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(38),
+        child: Stack(
+          children: [
+            if (_isLocked)
+              LockScreen(
+                currentTime: _currentTime,
+                currentDate: _currentDate,
+                slideProgress: _slideProgress,
+                onSlideUpdate: (progress) {
+                  setState(() {
+                    _slideProgress = progress;
+                  });
+                },
+                onUnlock: _unlockPhone,
+              )
+            else if (_isAppOpen)
+              Column(
+                children: [
+                  // Status Bar
+                  Container(
+                    height: 24,
+                    color: Colors.black,
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          _currentTime,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            Icon(Icons.signal_cellular_alt,
+                                color: Colors.white, size: 14),
+                            const SizedBox(width: 4),
+                            Icon(Icons.wifi, color: Colors.white, size: 14),
+                            const SizedBox(width: 4),
+                            Icon(Icons.battery_full,
+                                color: Colors.white, size: 14),
+                          ],
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(32),
-                  child: Stack(
-                    children: [
-                      // Home Screen or App Content
-                      if (!_isAppOpen)
-                        _buildHomeScreen()
-                      else
-                        SlideTransition(
-                          position: _slideAnimation,
-                          child: ScaleTransition(
-                            scale: _scaleAnimation,
-                            child: Stack(
-                              children: [
-                                Column(
-                                  children: [
-                                    Expanded(
-                                      child: Stack(
-                                        children: [
-                                          _apps[_currentAppIndex]['widget'],
-                                          // App Close Button
-                                          Positioned(
-                                            top: 40,
-                                            left: 10,
-                                            child: IconButton(
-                                              icon: const Icon(Icons.arrow_back,
-                                                  color: Colors.white),
-                                              onPressed: _closeApp,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    // Navigation Bar
-                                    Container(
-                                      height: 50,
-                                      decoration: BoxDecoration(
-                                        color: Colors.black.withOpacity(0.3),
-                                        borderRadius:
-                                            const BorderRadius.vertical(
-                                          top: Radius.circular(20),
-                                        ),
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          // Back button
-                                          IconButton(
-                                            icon: const Icon(
-                                              Icons.arrow_back,
-                                              color: Colors.white,
-                                              size: 24,
-                                            ),
-                                            onPressed: _closeApp,
-                                          ),
-                                          // Home button
-                                          GestureDetector(
-                                            onTap: _closeApp,
-                                            child: Container(
-                                              width: 40,
-                                              height: 40,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white
-                                                    .withOpacity(0.2),
-                                                shape: BoxShape.circle,
-                                              ),
-                                              child: const Center(
-                                                child: Icon(
-                                                  Icons.circle,
-                                                  color: Colors.white,
-                                                  size: 20,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          // Recent apps button
-                                          IconButton(
-                                            icon: const Icon(
-                                              Icons.square_outlined,
-                                              color: Colors.white,
-                                              size: 24,
-                                            ),
-                                            onPressed: _closeApp,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                  ),
+                  Expanded(
+                    child: _apps[_currentAppIndex]['widget'],
+                  ),
+                  // Navigation Bar
+                  Container(
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.3),
+                      borderRadius: const BorderRadius.vertical(
+                        top: Radius.circular(20),
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        // Back button
+                        IconButton(
+                          icon: const Icon(
+                            Icons.arrow_back,
+                            color: Colors.white,
+                            size: 24,
+                          ),
+                          onPressed: _closeApp,
+                        ),
+                        // Home button
+                        GestureDetector(
+                          onTap: _closeApp,
+                          child: Container(
+                            width: 40,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(color: Colors.white, width: 2),
                             ),
                           ),
                         ),
-                      // Status Bar
-                      Positioned(
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        child: Container(
-                          height: 30,
-                          color: Colors.black,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const SizedBox(width: 20),
-                              Text(
-                                _currentTime,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Row(
-                                children: [
-                                  Icon(Icons.signal_cellular_alt,
-                                      color: Colors.white, size: 12),
-                                  SizedBox(width: 5),
-                                  Icon(Icons.wifi,
-                                      color: Colors.white, size: 12),
-                                  SizedBox(width: 5),
-                                  Icon(Icons.battery_full,
-                                      color: Colors.white, size: 12),
-                                  SizedBox(width: 20),
-                                ],
-                              ),
-                            ],
+                        // Recent apps button
+                        IconButton(
+                          icon: const Icon(
+                            Icons.square_outlined,
+                            color: Colors.white,
+                            size: 24,
                           ),
+                          onPressed: _closeApp,
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
+                  ),
+                ],
+              )
+            else
+              HomeScreen(
+                currentTime: _currentTime,
+                currentDate: _currentDate,
+                onLock: () {
+                  setState(() {
+                    _isLocked = true;
+                    _slideProgress = 0.0;
+                  });
+                },
+                onOpenApp: _openApp,
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class LockScreen extends StatelessWidget {
+  final String currentTime;
+  final String currentDate;
+  final double slideProgress;
+  final Function(double) onSlideUpdate;
+  final VoidCallback onUnlock;
+
+  const LockScreen({
+    super.key,
+    required this.currentTime,
+    required this.currentDate,
+    required this.slideProgress,
+    required this.onSlideUpdate,
+    required this.onUnlock,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Colors.blue[900]!,
+            Colors.black,
+          ],
+        ),
+      ),
+      child: Column(
+        children: [
+          // Status Bar
+          Container(
+            height: 24,
+            color: Colors.black,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  currentTime,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
+                Row(
+                  children: [
+                    Icon(Icons.signal_cellular_alt,
+                        color: Colors.white, size: 14),
+                    const SizedBox(width: 4),
+                    Icon(Icons.wifi, color: Colors.white, size: 14),
+                    const SizedBox(width: 4),
+                    Icon(Icons.battery_full, color: Colors.white, size: 14),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          const Spacer(),
+          // Time and Date
+          Text(
+            currentTime,
+            style: GoogleFonts.poppins(
+              fontSize: 48,
+              fontWeight: FontWeight.w300,
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            currentDate,
+            style: GoogleFonts.poppins(
+              fontSize: 16,
+              color: Colors.white70,
+            ),
+          ),
+          const Spacer(),
+          // Slide to Unlock
+          GestureDetector(
+            onHorizontalDragUpdate: (details) {
+              final newProgress =
+                  (slideProgress + details.delta.dx / 200).clamp(0.0, 1.0);
+              onSlideUpdate(newProgress);
+              if (newProgress >= 1.0) {
+                onUnlock();
+              }
+            },
+            onHorizontalDragEnd: (_) {
+              if (slideProgress < 1.0) {
+                onSlideUpdate(0.0);
+              }
+            },
+            child: Container(
+              height: 60,
+              margin: const EdgeInsets.only(bottom: 40),
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Container(
+                    width: 200,
+                    height: 2,
+                    color: Colors.white24,
+                  ),
+                  Transform.translate(
+                    offset: Offset(slideProgress * 100, 0),
+                    child: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            blurRadius: 8,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  if (slideProgress < 1.0)
+                    Text(
+                      'Slide to unlock',
+                      style: GoogleFonts.poppins(
+                        color: Colors.white70,
+                        fontSize: 14,
+                      ),
+                    ),
+                ],
               ),
-            ],
+            ),
           ),
         ],
       ),
     );
   }
+}
 
-  Widget _buildHomeScreen() {
+class HomeScreen extends StatelessWidget {
+  final String currentTime;
+  final String currentDate;
+  final VoidCallback onLock;
+  final Function(int) onOpenApp;
+
+  const HomeScreen({
+    super.key,
+    required this.currentTime,
+    required this.currentDate,
+    required this.onLock,
+    required this.onOpenApp,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -345,10 +464,39 @@ class _MobileMockupSectionState extends State<MobileMockupSection>
       ),
       child: Column(
         children: [
+          // Status Bar
+          Container(
+            height: 24,
+            color: Colors.black,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  currentTime,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                Row(
+                  children: [
+                    Icon(Icons.signal_cellular_alt,
+                        color: Colors.white, size: 14),
+                    const SizedBox(width: 4),
+                    Icon(Icons.wifi, color: Colors.white, size: 14),
+                    const SizedBox(width: 4),
+                    Icon(Icons.battery_full, color: Colors.white, size: 14),
+                  ],
+                ),
+              ],
+            ),
+          ),
           const SizedBox(height: 30),
           // Time
           Text(
-            _currentTime,
+            currentTime,
             style: GoogleFonts.poppins(
               fontSize: 36,
               fontWeight: FontWeight.bold,
@@ -358,7 +506,7 @@ class _MobileMockupSectionState extends State<MobileMockupSection>
           const SizedBox(height: 4),
           // Date
           Text(
-            _currentDate,
+            currentDate,
             style: GoogleFonts.poppins(
               fontSize: 14,
               color: Colors.white.withOpacity(0.8),
@@ -375,10 +523,32 @@ class _MobileMockupSectionState extends State<MobileMockupSection>
                 crossAxisSpacing: 16,
                 childAspectRatio: 1.2,
               ),
-              itemCount: _apps.length,
+              itemCount: 4,
               itemBuilder: (context, index) {
+                final apps = [
+                  {
+                    'name': 'Calculator',
+                    'icon': Icons.calculate,
+                    'color': Colors.orange,
+                  },
+                  {
+                    'name': 'Tic Tac Toe',
+                    'icon': Icons.grid_3x3,
+                    'color': Colors.green,
+                  },
+                  {
+                    'name': 'Sudoku',
+                    'icon': Icons.grid_4x4,
+                    'color': Colors.purple,
+                  },
+                  {
+                    'name': 'Calendar',
+                    'icon': Icons.calendar_today,
+                    'color': Colors.red,
+                  },
+                ];
                 return GestureDetector(
-                  onTap: () => _openApp(index),
+                  onTap: () => onOpenApp(index),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -386,25 +556,26 @@ class _MobileMockupSectionState extends State<MobileMockupSection>
                         width: 60,
                         height: 60,
                         decoration: BoxDecoration(
-                          color: _apps[index]['color'],
+                          color: apps[index]['color'] as Color,
                           borderRadius: BorderRadius.circular(15),
                           boxShadow: [
                             BoxShadow(
-                              color: _apps[index]['color'].withOpacity(0.3),
+                              color: (apps[index]['color'] as Color)
+                                  .withOpacity(0.3),
                               blurRadius: 10,
                               spreadRadius: 2,
                             ),
                           ],
                         ),
                         child: Icon(
-                          _apps[index]['icon'],
+                          apps[index]['icon'] as IconData,
                           color: Colors.white,
                           size: 32,
                         ),
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        _apps[index]['name'],
+                        apps[index]['name'] as String,
                         style: GoogleFonts.poppins(
                           fontSize: 14,
                           color: Colors.white,
@@ -445,15 +616,8 @@ class _MobileMockupSectionState extends State<MobileMockupSection>
                     width: 40,
                     height: 40,
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.2),
                       shape: BoxShape.circle,
-                    ),
-                    child: const Center(
-                      child: Icon(
-                        Icons.circle,
-                        color: Colors.white,
-                        size: 20,
-                      ),
+                      border: Border.all(color: Colors.white, width: 2),
                     ),
                   ),
                 ),
@@ -471,27 +635,6 @@ class _MobileMockupSectionState extends State<MobileMockupSection>
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildNavItem(IconData icon, String label, bool isSelected) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Icon(
-          icon,
-          color: isSelected ? Colors.white : Colors.white.withOpacity(0.5),
-          size: 20,
-        ),
-        const SizedBox(height: 2),
-        Text(
-          label,
-          style: GoogleFonts.poppins(
-            fontSize: 9,
-            color: isSelected ? Colors.white : Colors.white.withOpacity(0.5),
-          ),
-        ),
-      ],
     );
   }
 }
