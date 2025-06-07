@@ -35,7 +35,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
       'title': 'Chat Bot\n',
       'description':
           'An AI-powered chatbot app that answers user queries in real time\n',
-      'image': 'assets/chatbot.png',
+      'image': 'assets/chatBot.png',
       'technologies': ['Flutter', 'Gemini'],
       'github': 'https://github.com/Abhishek-jaison/chatbot',
       'demo':
