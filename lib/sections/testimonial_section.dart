@@ -5,6 +5,7 @@ import 'package:portfolio/constants.dart';
 import 'package:portfolio/widgets/animated_text.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:portfolio/widgets/custom_button.dart';
 
 class TestimonialSection extends StatefulWidget {
   const TestimonialSection({super.key});
@@ -354,17 +355,13 @@ class _TestimonialSectionState extends State<TestimonialSection> {
             maxLines: 6,
           ),
           const SizedBox(height: 24),
-          ElevatedButton.icon(
+          CustomButton(
+            text: 'View Full Testimonial',
             onPressed: () => _launchLinkedIn(testimonial['linkedinUrl']),
-            icon: const FaIcon(FontAwesomeIcons.linkedin),
-            label: const Text('View Full Testimonial'),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: kPrimaryColor,
-              foregroundColor: Colors.white,
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
-              ),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+            textStyle: const TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ],

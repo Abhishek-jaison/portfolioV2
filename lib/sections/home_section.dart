@@ -9,7 +9,9 @@ import 'package:portfolio/widgets/custom_button.dart';
 
 class HomeSection extends StatefulWidget {
   final VoidCallback? onHireMe;
-  const HomeSection({Key? key, this.onHireMe}) : super(key: key);
+  final ScrollController? scrollController;
+  const HomeSection({Key? key, this.onHireMe, this.scrollController})
+      : super(key: key);
 
   @override
   State<HomeSection> createState() => _HomeSectionState();
@@ -172,7 +174,17 @@ class _HomeSectionState extends State<HomeSection> {
                                       ),
                                       CustomButton(
                                         text: 'Hire Me',
-                                        onPressed: widget.onHireMe ?? () {},
+                                        onPressed: () {
+                                          if (widget.scrollController != null) {
+                                            widget.scrollController!.animateTo(
+                                              widget.scrollController!.position
+                                                  .maxScrollExtent,
+                                              duration: const Duration(
+                                                  milliseconds: 500),
+                                              curve: Curves.easeInOut,
+                                            );
+                                          }
+                                        },
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 24, vertical: 8),
                                         textStyle: const TextStyle(
@@ -295,7 +307,17 @@ class _HomeSectionState extends State<HomeSection> {
                                     ),
                                     CustomButton(
                                       text: 'Hire Me',
-                                      onPressed: widget.onHireMe ?? () {},
+                                      onPressed: () {
+                                        if (widget.scrollController != null) {
+                                          widget.scrollController!.animateTo(
+                                            widget.scrollController!.position
+                                                .maxScrollExtent,
+                                            duration: const Duration(
+                                                milliseconds: 500),
+                                            curve: Curves.easeInOut,
+                                          );
+                                        }
+                                      },
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 24, vertical: 8),
                                       textStyle: const TextStyle(

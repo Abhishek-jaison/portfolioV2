@@ -129,7 +129,7 @@ class _PortfolioHomeState extends State<PortfolioHome> {
         controller: _scrollController,
         child: Column(
           children: [
-            const HomeSection(),
+            HomeSection(scrollController: _scrollController),
             const AboutSection(),
             const ExperienceSection(),
 

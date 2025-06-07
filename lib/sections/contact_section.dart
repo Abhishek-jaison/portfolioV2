@@ -31,6 +31,7 @@ class _ContactSectionState extends State<ContactSection> {
       builder: (context, constraints) {
         final screenHeight = MediaQuery.of(context).size.height;
         return Container(
+          key: const Key('contact-section'),
           constraints: BoxConstraints(minHeight: screenHeight),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 48),
           decoration: BoxDecoration(
