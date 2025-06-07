@@ -18,6 +18,7 @@ class ProjectsSection extends StatefulWidget {
 class _ProjectsSectionState extends State<ProjectsSection> {
   int _hoveredIndex = -1;
   bool _visible = false;
+  final ScrollController _scrollController = ScrollController();
 
   static final List<Map<String, dynamic>> _projects = [
     {
@@ -52,57 +53,111 @@ class _ProjectsSectionState extends State<ProjectsSection> {
     },
   ];
 
+  void _scrollLeft() {
+    _scrollController.animateTo(
+      _scrollController.offset - 350,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
+
+  void _scrollRight() {
+    _scrollController.animateTo(
+      _scrollController.offset + 350,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 48),
-      decoration: BoxDecoration(
-        color: kBackgroundLight.withOpacity(0.5),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const AnimatedText(
-            text: 'My Projects',
-            isHeader: true,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final showScrollButtons = constraints.maxWidth <
+            1100; // Show buttons when width is less than 1100px
+
+        return Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 48),
+          decoration: BoxDecoration(
+            color: kBackgroundLight.withOpacity(0.5),
           ),
-          const SizedBox(height: 64),
-          VisibilityDetector(
-            key: const Key('projects-section'),
-            onVisibilityChanged: (info) {
-              if (info.visibleFraction > 0.2 && !_visible) {
-                setState(() {
-                  _visible = true;
-                });
-              }
-            },
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              physics: const BouncingScrollPhysics(),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+          child: Stack(
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  for (int i = 0; i < _projects.length; i++) ...[
-                    if (i != 0) const SizedBox(width: 24),
-                    SizedBox(
-                      width: 350,
-                      child: _buildProjectCard(_projects[i], i)
-                          .animate(target: _visible ? 1 : 0)
-                          .slideY(
-                              begin: 0.4,
-                              duration: 600.ms,
-                              curve: Curves.easeOut)
-                          .fadeIn(duration: 600.ms, delay: (i * 120).ms),
+                  const AnimatedText(
+                    text: 'My Projects',
+                    isHeader: true,
+                  ),
+                  const SizedBox(height: 64),
+                  VisibilityDetector(
+                    key: const Key('projects-section'),
+                    onVisibilityChanged: (info) {
+                      if (info.visibleFraction > 0.2 && !_visible) {
+                        setState(() {
+                          _visible = true;
+                        });
+                      }
+                    },
+                    child: SingleChildScrollView(
+                      controller: _scrollController,
+                      scrollDirection: Axis.horizontal,
+                      physics: const BouncingScrollPhysics(),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          for (int i = 0; i < _projects.length; i++) ...[
+                            if (i != 0) const SizedBox(width: 24),
+                            SizedBox(
+                              width: 350,
+                              child: _buildProjectCard(_projects[i], i)
+                                  .animate(target: _visible ? 1 : 0)
+                                  .slideY(
+                                      begin: 0.4,
+                                      duration: 600.ms,
+                                      curve: Curves.easeOut)
+                                  .fadeIn(
+                                      duration: 600.ms, delay: (i * 120).ms),
+                            ),
+                          ]
+                        ],
+                      ),
                     ),
-                  ]
+                  ),
                 ],
               ),
-            ),
+              if (showScrollButtons) ...[
+                Positioned(
+                  right: 0,
+                  top: 0,
+                  bottom: 0,
+                  child: Center(
+                    child: FloatingActionButton(
+                      heroTag: 'projects_right',
+                      onPressed: _scrollRight,
+                      backgroundColor: Colors.transparent,
+                      elevation: 0,
+                      child: Icon(
+                        Icons.arrow_forward_ios,
+                        color: kPrimaryColor,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 

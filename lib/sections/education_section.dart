@@ -33,7 +33,8 @@ class EducationSection extends StatelessWidget {
                   title: 'B.Tech',
                   institution: 'Christ College of Engineering',
                   year: '2022 - 2026',
-                  details: 'Current CGPA: 8.7',
+                  details:
+                      'Current CGPA: 8.7\nComputer Science and Engineering',
                   isCurrent: true,
                 ),
                 const SizedBox(width: 24),

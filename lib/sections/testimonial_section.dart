@@ -30,16 +30,6 @@ class _TestimonialSectionState extends State<TestimonialSection> {
       'imageUrl': 'assets/T1.jpeg'
     },
     {
-      "name": "Malay Agrawal",
-      "position":
-          "CI/CD / Automation / Flutter App + Web Developer / UX-UI / FastAPI / AWS / SQL",
-      "testimonial":
-          "I had the pleasure of working with Abhishek during his internship, where he contributed to the improvement and extension of our Flutter and Dart application. His responsibilities included debugging existing features and implementing new ones, both of which he handled with competence and attention to detail. He was responsive to feedback, eager to learn, and maintained a consistent level of professionalism throughout the internship. I would confidently recommend him for any future opportunity.",
-      "linkedinUrl":
-          "https://www.linkedin.com/in/malay-agrawal/details/recommendations/",
-      "imageUrl": 'assets/T5.jpeg'
-    },
-    {
       'name': 'Zaid Sayyed',
       'position':
           'Campus Ambassador @GDG Prayagraj | UHack 2.0 Winner 🏆 | App Developer (Flutter/Dart)',
@@ -48,6 +38,16 @@ class _TestimonialSectionState extends State<TestimonialSection> {
       'linkedinUrl':
           'https://www.linkedin.com/in/abhishek-jaison/details/recommendations/',
       'imageUrl': 'assets/T3.jpeg'
+    },
+    {
+      "name": "Malay Agrawal",
+      "position":
+          "CI/CD / Automation / Flutter App + Web Developer / UX-UI / FastAPI / AWS / SQL",
+      "testimonial":
+          "I had the pleasure of working with Abhishek during his internship, where he contributed to the improvement and extension of our Flutter and Dart application. His responsibilities included debugging existing features and implementing new ones, both of which he handled with competence and attention to detail. He was responsive to feedback, eager to learn, and maintained a consistent level of professionalism throughout the internship. I would confidently recommend him for any future opportunity.",
+      "linkedinUrl":
+          "https://www.linkedin.com/in/malay-agrawal/details/recommendations/",
+      "imageUrl": 'assets/T5.jpeg'
     },
     {
       'name': 'Ashutosh Rai',
