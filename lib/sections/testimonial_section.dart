@@ -27,39 +27,7 @@ class _TestimonialSectionState extends State<TestimonialSection> {
           'He was a fantastic resource, full of creativity and man of discipline',
       'linkedinUrl':
           'https://www.linkedin.com/in/abhishek-jaison/details/recommendations/',
-      'imageUrl':
-          'https://media.licdn.com/dms/image/v2/D5603AQHIGcC-iP0ybA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1715404605266?e=1752710400&v=beta&t=PKLEfvxHxxwoNGrNugJNyafVBYeZcyTB_6tSR-wmLDc',
-    },
-    {
-      'name': 'Ashutosh Rai',
-      'position': 'Flutter Developer | Ex-IT Intern @Honda Car India Ltd.',
-      'testimonial':
-          'I highly recommend Abhishek for his outstanding dedication and teamwork during our Flutter internship. His proactive approach, problem-solving skills, and collaborative spirit made him an invaluable team member, consistently delivering high-quality results',
-      'linkedinUrl':
-          'https://www.linkedin.com/in/abhishek-jaison/details/recommendations/',
-      'imageUrl':
-          'https://media.licdn.com/dms/image/v2/D5635AQG8BJfJpO7K_g/profile-framedphoto-shrink_800_800/profile-framedphoto-shrink_800_800/0/1735052161409?e=1749754800&v=beta&t=Op3xW1HJBd9Xi56RHDZGAsIiPjOwR5vItoNczDKiDO0'
-    },
-    {
-      'name': 'Zaid Sayyed',
-      'position':
-          'Campus Ambassador @GDG Prayagraj | UHack 2.0 Winner 🏆 | App Developer (Flutter/Dart)',
-      'testimonial':
-          'I had the privilege of working with Abhishek Jaison during our internship, and it was a truly rewarding experience. We worked together on some challenging projects, tackling complex problems as a team. What stood out the most was Abhishek\'s ability to stay focused, come up with creative solutions, and contribute ideas that made a real impact.\n\nCollaborating with him was always a positive experience. He brought a great attitude, a strong work ethic, and a natural ability to bring people together. We both learned a lot from each other during this time, and his approach to problem-solving and teamwork always made things smoother.\n\nAbhishek is someone who doesn\'t just work hard—he inspires the team to do their best. I\'m confident he\'ll excel in anything he takes on, and I\'m excited to see all the amazing things he\'ll achieve in the future.',
-      'linkedinUrl':
-          'https://www.linkedin.com/in/abhishek-jaison/details/recommendations/',
-      'imageUrl':
-          'https://media.licdn.com/dms/image/v2/D5603AQF_DfqMNKxPow/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1697396607338?e=1752710400&v=beta&t=ltHe6dvyb6UY2da_pVHgfJ6bZxaN7VTtBhbKlkNtHm0',
-    },
-    {
-      'name': 'Isha Motsara',
-      'position': 'Flutter Intern @F Salon Academy | Flutter Developer | Dart',
-      'testimonial':
-          'I had the pleasure of working with Abhishek in a team where he contributed as a Flutter Developer, and I can confidently say he is an outstanding professional in his field. Abhishek consistently demonstrated exceptional skills in Flutter development, including building intuitive and visually appealing user interfaces, optimizing app performance. I highly recommend him for any opportunities in this domain.',
-      'linkedinUrl':
-          'https://www.linkedin.com/in/abhishek-jaison/details/recommendations/',
-      'imageUrl':
-          'https://media.licdn.com/dms/image/v2/D5635AQH8ukWn1blUNg/profile-framedphoto-shrink_800_800/profile-framedphoto-shrink_800_800/0/1711175572703?e=1749754800&v=beta&t=GKpQ_0t90Iz6FIpUOcAxnwu0vW9wofnEiQsYC3I3J8o'
+      'imageUrl': 'assets/T1.jpeg'
     },
     {
       "name": "Malay Agrawal",
@@ -69,9 +37,36 @@ class _TestimonialSectionState extends State<TestimonialSection> {
           "I had the pleasure of working with Abhishek during his internship, where he contributed to the improvement and extension of our Flutter and Dart application. His responsibilities included debugging existing features and implementing new ones, both of which he handled with competence and attention to detail. He was responsive to feedback, eager to learn, and maintained a consistent level of professionalism throughout the internship. I would confidently recommend him for any future opportunity.",
       "linkedinUrl":
           "https://www.linkedin.com/in/malay-agrawal/details/recommendations/",
-      "imageUrl":
-          'https://media.licdn.com/dms/image/v2/D5603AQHqe05TOz94Wg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1704280912062?e=1754524800&v=beta&t=lW9jR34gZYNCJL8KdM-QLSDV06BPyqoRD6UP1oI7ub4'
-    }
+      "imageUrl": 'assets/T5.jpeg'
+    },
+    {
+      'name': 'Zaid Sayyed',
+      'position':
+          'Campus Ambassador @GDG Prayagraj | UHack 2.0 Winner 🏆 | App Developer (Flutter/Dart)',
+      'testimonial':
+          'I had the privilege of working with Abhishek Jaison during our internship, and it was a truly rewarding experience. We worked together on some challenging projects, tackling complex problems as a team. What stood out the most was Abhishek\'s ability to stay focused, come up with creative solutions, and contribute ideas that made a real impact.\n\nCollaborating with him was always a positive experience. He brought a great attitude, a strong work ethic, and a natural ability to bring people together. We both learned a lot from each other during this time, and his approach to problem-solving and teamwork always made things smoother.\n\nAbhishek is someone who doesn\'t just work hard—he inspires the team to do their best. I\'m confident he\'ll excel in anything he takes on, and I\'m excited to see all the amazing things he\'ll achieve in the future.',
+      'linkedinUrl':
+          'https://www.linkedin.com/in/abhishek-jaison/details/recommendations/',
+      'imageUrl': 'assets/T3.jpeg'
+    },
+    {
+      'name': 'Ashutosh Rai',
+      'position': 'Flutter Developer | Ex-IT Intern @Honda Car India Ltd.',
+      'testimonial':
+          'I highly recommend Abhishek for his outstanding dedication and teamwork during our Flutter internship. His proactive approach, problem-solving skills, and collaborative spirit made him an invaluable team member, consistently delivering high-quality results',
+      'linkedinUrl':
+          'https://www.linkedin.com/in/abhishek-jaison/details/recommendations/',
+      'imageUrl': 'assets/T2.jpeg'
+    },
+    {
+      'name': 'Isha Motsara',
+      'position': 'Flutter Intern @F Salon Academy | Flutter Developer | Dart',
+      'testimonial':
+          'I had the pleasure of working with Abhishek in a team where he contributed as a Flutter Developer, and I can confidently say he is an outstanding professional in his field. Abhishek consistently demonstrated exceptional skills in Flutter development, including building intuitive and visually appealing user interfaces, optimizing app performance. I highly recommend him for any opportunities in this domain.',
+      'linkedinUrl':
+          'https://www.linkedin.com/in/abhishek-jaison/details/recommendations/',
+      'imageUrl': 'assets/T4.jpeg'
+    },
   ];
 
   @override
@@ -315,7 +310,7 @@ class _TestimonialSectionState extends State<TestimonialSection> {
             children: [
               CircleAvatar(
                 radius: 30,
-                backgroundImage: NetworkImage(testimonial['imageUrl']),
+                backgroundImage: AssetImage(testimonial['imageUrl']),
               ),
               const SizedBox(width: 16),
               Expanded(

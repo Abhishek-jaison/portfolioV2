@@ -24,7 +24,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
       'title': 'Distractino Free Instagram',
       'description':
           'A distraction-free Instagram web app that hides Reels to help users focus on meaningful content.',
-      'image': 'images/insta.jpg',
+      'image': 'assets/insta.jpg',
       'technologies': ['Flutter', 'WebView', 'JavaScript'],
       'github': 'https://github.com/Abhishek-jaison/insta-without-reels',
       'demo':
@@ -34,7 +34,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
       'title': 'Chat Bot\n',
       'description':
           'An AI-powered chatbot app that answers user queries in real time\n',
-      'image': 'images/chatbot.png',
+      'image': 'assets/chatbot.png',
       'technologies': ['Flutter', 'Gemini'],
       'github': 'https://github.com/Abhishek-jaison/chatbot',
       'demo':
@@ -44,7 +44,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
       'title': 'Social Media App\n',
       'description':
           'A social media app enabling users to connect, share posts, and interact in real time.',
-      'image': 'images/socialMedia.jpeg',
+      'image': 'assets/socialMedia.jpeg',
       'technologies': ['Flutter', 'Firebase'],
       'github': 'https://github.com/Abhishek-jaison/login-page-with-firebase',
       'demo':

@@ -10,7 +10,7 @@ class SkillsSection extends StatelessWidget {
   static final List<Map<String, dynamic>> _skills = [
     {
       'name': 'Flutter',
-      'asset': 'images/icons/flutter.png',
+      'asset': 'assets/flutter.png',
       'description': 'Cross-platform mobile development framework',
       'proficiency': 'Intermediate',
       'years': '1+',
@@ -18,7 +18,7 @@ class SkillsSection extends StatelessWidget {
     },
     {
       'name': 'Firebase',
-      'asset': 'images/icons/firebase.png',
+      'asset': 'assets/firebase.png',
       'description': 'Backend as a Service (BaaS) platform',
       'proficiency': 'Intermediate',
       'years': '1+',
@@ -26,7 +26,7 @@ class SkillsSection extends StatelessWidget {
     },
     {
       "name": "Python",
-      "asset": "images/icons/python.png",
+      "asset": "assets/python.png",
       "description":
           "High-level programming language used for scripting and problem solving",
       "proficiency": "Basic",
@@ -39,7 +39,7 @@ class SkillsSection extends StatelessWidget {
     },
     {
       'name': 'SQL',
-      'asset': 'images/icons/sql.png',
+      'asset': 'assets/sql.png',
       'description': 'Database management and querying',
       'proficiency': 'Intermediate',
       'years': '1',
@@ -47,7 +47,7 @@ class SkillsSection extends StatelessWidget {
     },
     {
       'name': 'REST API',
-      'asset': 'images/icons/rest.png',
+      'asset': 'assets/rest.png',
       'description': 'API development and integration',
       'proficiency': 'Intermediate',
       'years': '1',
@@ -55,7 +55,7 @@ class SkillsSection extends StatelessWidget {
     },
     {
       'name': 'C',
-      'asset': 'images/icons/c.png',
+      'asset': 'assets/c.png',
       'description': 'System programming language',
       'proficiency': 'Intermediate',
       'years': '1',

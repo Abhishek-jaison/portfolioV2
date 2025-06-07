@@ -69,6 +69,13 @@ flutter:
   assets:
     - assets/
     - assets/images/
+    - assets/images/icons/
+    - assets/bgvideo.mp4
+    - assets/insta.jpg
+    - assets/chatBot.png
+    - assets/lockscreen.jpg
+    - assets/profile.jpg
+    - assets/socialMedia.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

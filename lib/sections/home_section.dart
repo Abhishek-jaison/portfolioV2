@@ -98,9 +98,8 @@ class _HomeSectionState extends State<HomeSection> {
                                 children: [
                                   const CircleAvatar(
                                     radius: 60,
-                                    backgroundImage: NetworkImage(
-                                      'https://media.licdn.com/dms/image/v2/D5603AQEg0-zbt8TWdg/profile-displayphoto-shrink_400_400/B56ZYQsEhFGcAg-/0/1744036711625?e=1752710400&v=beta&t=xU8ESTpUCDsDHoy4-SvLlvkMHX9U0iEHOZPCWW-R7Jk',
-                                    ),
+                                    backgroundImage:
+                                        AssetImage("assets/profile.jpg"),
                                   )
                                       .animate()
                                       .scale(duration: 600.ms)
@@ -223,9 +222,8 @@ class _HomeSectionState extends State<HomeSection> {
                               children: [
                                 const CircleAvatar(
                                   radius: 60,
-                                  backgroundImage: NetworkImage(
-                                    'https://media.licdn.com/dms/image/v2/D5603AQEg0-zbt8TWdg/profile-displayphoto-shrink_400_400/B56ZYQsEhFGcAg-/0/1744036711625?e=1752710400&v=beta&t=xU8ESTpUCDsDHoy4-SvLlvkMHX9U0iEHOZPCWW-R7Jk',
-                                  ),
+                                  backgroundImage:
+                                      AssetImage("assets/profile.jpg"),
                                 )
                                     .animate()
                                     .scale(duration: 600.ms)

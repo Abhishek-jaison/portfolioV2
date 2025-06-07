@@ -326,7 +326,7 @@ class LockScreen extends StatelessWidget {
           ],
         ),
         image: const DecorationImage(
-          image: AssetImage('images/lockscreen.jpg'),
+          image: AssetImage('assets/lockscreen.jpg'),
           fit: BoxFit.cover,
         ),
       ),
@@ -453,7 +453,7 @@ class HomeScreen extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('images/lockscreen.jpg'),
+          image: AssetImage('assets/lockscreen.jpg'),
           fit: BoxFit.cover,
         ),
       ),
