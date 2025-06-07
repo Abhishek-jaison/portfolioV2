@@ -55,7 +55,7 @@ class SkillsSection extends StatelessWidget {
     },
     {
       'name': 'C',
-      'asset': 'assets/c.png',
+      'asset': 'assets/C.png',
       'description': 'System programming language',
       'proficiency': 'Intermediate',
       'years': '1',
