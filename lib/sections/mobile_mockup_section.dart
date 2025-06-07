@@ -51,6 +51,12 @@ class _MobileMockupSectionState extends State<MobileMockupSection>
       'color': Colors.red,
       'widget': const CalendarApp(),
     },
+    {
+      'name': 'Terminal',
+      'icon': Icons.terminal,
+      'color': Colors.grey[800]!,
+      'widget': const TerminalApp(),
+    },
   ];
 
   @override
@@ -1221,6 +1227,212 @@ class _CalendarAppState extends State<CalendarApp> {
                   ),
                 );
               },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// Terminal App
+class TerminalApp extends StatefulWidget {
+  const TerminalApp({super.key});
+
+  @override
+  State<TerminalApp> createState() => _TerminalAppState();
+}
+
+class _TerminalAppState extends State<TerminalApp> {
+  final List<String> _messages = [];
+  bool _isWaitingForInput = true;
+  int? _selectedOption;
+  final TextEditingController _inputController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _showWelcomeMessage();
+  }
+
+  @override
+  void dispose() {
+    _inputController.dispose();
+    super.dispose();
+  }
+
+  void _showWelcomeMessage() {
+    setState(() {
+      _messages.add('Welcome to my terminal! 👋');
+      _showMenu();
+    });
+  }
+
+  void _showMenu() {
+    _messages.addAll([
+      '',
+      'What would you like to know?',
+      '',
+      '1. Want to know more about me?',
+      '2. What do I do?',
+      '3. My skills',
+      '4. Contact me',
+      '',
+      'Enter a number (1-4):',
+    ]);
+  }
+
+  void _handleInput(String input) {
+    if (_isWaitingForInput) {
+      int? option = int.tryParse(input);
+      if (option != null && option >= 1 && option <= 4) {
+        setState(() {
+          _selectedOption = option;
+          _messages.add('> $input');
+          _showResponse(option);
+          _showMenu();
+        });
+      } else {
+        setState(() {
+          _messages.add('> $input');
+          _messages.add('Please enter a valid number (1-4)');
+          _messages.add('');
+          _showMenu();
+        });
+      }
+      _inputController.clear();
+    }
+  }
+
+  void _showResponse(int option) {
+    switch (option) {
+      case 1:
+        _messages.addAll([
+          'About Me:',
+          'I am a passionate Flutter developer with a keen interest in creating beautiful and functional mobile applications.',
+          'I love solving complex problems and turning ideas into reality through code.',
+          '',
+        ]);
+        break;
+      case 2:
+        _messages.addAll([
+          'What I Do:',
+          'I develop cross-platform mobile applications using Flutter.',
+          'I specialize in creating intuitive user interfaces and implementing complex features.',
+          'I also contribute to open-source projects and share my knowledge through technical writing.',
+          '',
+        ]);
+        break;
+      case 3:
+        _messages.addAll([
+          'My Skills:',
+          '- Flutter & Dart',
+          '- Firebase',
+          '- REST APIs',
+          '- State Management',
+          '',
+        ]);
+        break;
+      case 4:
+        _messages.addAll([
+          'Contact Me:',
+          'Email: abhishekjaison04@gmail.com\n',
+          'LinkedIn: www.linkedin.com/in/abhishek-jaison/\n',
+          'GitHub: github.com/Abhishek-jaison/',
+          '',
+        ]);
+        break;
+    }
+  }
+
+  void _resetTerminal() {
+    setState(() {
+      _messages.clear();
+      _isWaitingForInput = true;
+      _selectedOption = null;
+      _showWelcomeMessage();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.black,
+      child: Column(
+        children: [
+          // Terminal Header
+          Container(
+            height: 30,
+            color: Colors.grey[900],
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Terminal',
+                  style: GoogleFonts.firaCode(
+                    color: Colors.white,
+                    fontSize: 14,
+                  ),
+                ),
+                IconButton(
+                  icon:
+                      const Icon(Icons.refresh, color: Colors.white, size: 16),
+                  onPressed: _resetTerminal,
+                  padding: EdgeInsets.zero,
+                  constraints: const BoxConstraints(),
+                ),
+              ],
+            ),
+          ),
+          // Terminal Content
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.all(16),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ..._messages.map((message) => Padding(
+                          padding: const EdgeInsets.only(bottom: 4),
+                          child: Text(
+                            message,
+                            style: GoogleFonts.firaCode(
+                              color: Colors.white,
+                              fontSize: 14,
+                            ),
+                          ),
+                        )),
+                    if (_isWaitingForInput)
+                      Row(
+                        children: [
+                          Text(
+                            '> ',
+                            style: GoogleFonts.firaCode(
+                              color: Colors.green,
+                              fontSize: 14,
+                            ),
+                          ),
+                          Expanded(
+                            child: TextField(
+                              controller: _inputController,
+                              style: GoogleFonts.firaCode(
+                                color: Colors.white,
+                                fontSize: 14,
+                              ),
+                              decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                contentPadding: EdgeInsets.zero,
+                              ),
+                              onSubmitted: _handleInput,
+                              autofocus: true,
+                            ),
+                          ),
+                        ],
+                      ),
+                  ],
+                ),
+              ),
             ),
           ),
         ],

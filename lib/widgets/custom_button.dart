@@ -7,6 +7,7 @@ class CustomButton extends StatefulWidget {
   final bool isOutlined;
   final EdgeInsetsGeometry? padding;
   final TextStyle? textStyle;
+  final Color? borderColor;
 
   const CustomButton({
     super.key,
@@ -15,6 +16,7 @@ class CustomButton extends StatefulWidget {
     this.isOutlined = false,
     this.padding,
     this.textStyle,
+    this.borderColor,
   });
 
   @override
@@ -41,12 +43,16 @@ class _CustomButtonState extends State<CustomButton> {
                 ),
           borderRadius: BorderRadius.circular(30),
           border: widget.isOutlined
-              ? Border.all(color: kPrimaryColor, width: 2)
+              ? Border.all(
+                  color: widget.borderColor ?? kPrimaryColor,
+                  width: 2,
+                )
               : null,
           boxShadow: isHovered
               ? [
                   BoxShadow(
-                    color: kPrimaryColor.withOpacity(0.3),
+                    color:
+                        (widget.borderColor ?? kPrimaryColor).withOpacity(0.3),
                     blurRadius: 10,
                     offset: const Offset(0, 5),
                   ),
@@ -67,7 +73,9 @@ class _CustomButtonState extends State<CustomButton> {
                     TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: widget.isOutlined ? kPrimaryColor : Colors.white,
+                      color: widget.isOutlined
+                          ? (widget.borderColor ?? kPrimaryColor)
+                          : Colors.white,
                     ),
               ),
             ),

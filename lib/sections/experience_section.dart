@@ -110,35 +110,37 @@ class _ExperienceSectionState extends State<ExperienceSection> {
                         });
                       }
                     },
-                    child: SingleChildScrollView(
-                      controller: _scrollController,
-                      scrollDirection: Axis.horizontal,
-                      physics: const BouncingScrollPhysics(),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          for (int i = 0; i < _experiences.length; i++) ...[
-                            if (i != 0) const SizedBox(width: 24),
-                            SizedBox(
-                              width: 350,
-                              height: 500,
-                              child: _buildExperienceCard(_experiences[i], i)
-                                  .animate(target: _visible ? 1 : 0)
-                                  .slideY(
-                                      begin: 0.4,
-                                      duration: 600.ms,
-                                      curve: Curves.easeOut)
-                                  .fadeIn(
-                                      duration: 600.ms, delay: (i * 120).ms),
-                            ),
-                          ]
-                        ],
+                    child: Center(
+                      child: SingleChildScrollView(
+                        controller: _scrollController,
+                        scrollDirection: Axis.horizontal,
+                        physics: const BouncingScrollPhysics(),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            for (int i = 0; i < _experiences.length; i++) ...[
+                              if (i != 0) const SizedBox(width: 24),
+                              SizedBox(
+                                width: 350,
+                                height: 500,
+                                child: _buildExperienceCard(_experiences[i], i)
+                                    .animate(target: _visible ? 1 : 0)
+                                    .slideY(
+                                        begin: 0.4,
+                                        duration: 600.ms,
+                                        curve: Curves.easeOut)
+                                    .fadeIn(
+                                        duration: 600.ms, delay: (i * 120).ms),
+                              ),
+                            ]
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ],
               ),
-              if (showScrollButtons) ...[
+              if (constraints.maxWidth < 400) ...[
                 Positioned(
                   right: 0,
                   top: 0,

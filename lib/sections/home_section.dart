@@ -156,27 +156,28 @@ class _HomeSectionState extends State<HomeSection> {
                                     alignment: WrapAlignment.center,
                                     children: [
                                       CustomButton(
-                                        text: 'Download Resume',
+                                        text: 'Resume',
                                         onPressed: () {
                                           const url =
                                               'https://drive.google.com/file/d/1v4xAd_fO9mLMiXhugxV-QBYPeEYb0uiW/view?usp=drive_link';
                                           html.window.open(url, '_blank');
                                         },
                                         padding: const EdgeInsets.symmetric(
-                                            horizontal: 18, vertical: 8),
+                                            horizontal: 24, vertical: 8),
                                         textStyle: const TextStyle(
                                             fontSize: 13,
                                             fontWeight: FontWeight.w600),
+                                        isOutlined: true,
+                                        borderColor: Colors.grey[800],
                                       ),
-                                      ElevatedButton(
-                                        onPressed: widget.onHireMe,
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.white,
-                                          foregroundColor: Theme.of(context)
-                                              .colorScheme
-                                              .primary,
-                                        ),
-                                        child: const Text('Hire Me'),
+                                      CustomButton(
+                                        text: 'Hire Me',
+                                        onPressed: widget.onHireMe ?? () {},
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 24, vertical: 8),
+                                        textStyle: const TextStyle(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w600),
                                       )
                                           .animate()
                                           .fade(duration: 600.ms)
@@ -278,27 +279,28 @@ class _HomeSectionState extends State<HomeSection> {
                                   alignment: WrapAlignment.center,
                                   children: [
                                     CustomButton(
-                                      text: 'Download Resume',
+                                      text: 'Resume',
                                       onPressed: () {
                                         const url =
                                             'https://drive.google.com/file/d/1v4xAd_fO9mLMiXhugxV-QBYPeEYb0uiW/view?usp=drive_link';
                                         html.window.open(url, '_blank');
                                       },
                                       padding: const EdgeInsets.symmetric(
-                                          horizontal: 18, vertical: 8),
+                                          horizontal: 24, vertical: 8),
                                       textStyle: const TextStyle(
                                           fontSize: 13,
                                           fontWeight: FontWeight.w600),
+                                      isOutlined: true,
+                                      borderColor: Colors.grey[800],
                                     ),
-                                    ElevatedButton(
-                                      onPressed: widget.onHireMe,
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.white,
-                                        foregroundColor: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
-                                      ),
-                                      child: const Text('Hire Me'),
+                                    CustomButton(
+                                      text: 'Hire Me',
+                                      onPressed: widget.onHireMe ?? () {},
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 24, vertical: 8),
+                                      textStyle: const TextStyle(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w600),
                                     )
                                         .animate()
                                         .fade(duration: 600.ms)
