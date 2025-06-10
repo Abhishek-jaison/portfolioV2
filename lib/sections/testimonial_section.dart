@@ -18,6 +18,7 @@ class _TestimonialSectionState extends State<TestimonialSection> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
   Timer? _timer;
+  bool _isPageViewAttached = false;
 
   final List<Map<String, dynamic>> _testimonials = [
     {
@@ -73,7 +74,12 @@ class _TestimonialSectionState extends State<TestimonialSection> {
   @override
   void initState() {
     super.initState();
-    _startAutoScroll();
+    // Delay the start of auto-scroll to ensure PageView is built
+    Future.delayed(const Duration(milliseconds: 500), () {
+      if (mounted) {
+        _startAutoScroll();
+      }
+    });
   }
 
   @override
@@ -85,16 +91,21 @@ class _TestimonialSectionState extends State<TestimonialSection> {
 
   void _startAutoScroll() {
     _timer = Timer.periodic(const Duration(seconds: 5), (timer) {
+      if (!mounted || !_isPageViewAttached) return;
+
       if (_currentPage < _testimonials.length - 1) {
         _currentPage++;
       } else {
         _currentPage = 0;
       }
-      _pageController.animateToPage(
-        _currentPage,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.easeInOut,
-      );
+
+      if (_pageController.hasClients) {
+        _pageController.animateToPage(
+          _currentPage,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        );
+      }
     });
   }
 
@@ -201,6 +212,7 @@ class _TestimonialSectionState extends State<TestimonialSection> {
             onPageChanged: (index) {
               setState(() {
                 _currentPage = index;
+                _isPageViewAttached = true;
               });
             },
             itemCount: _testimonials.length,
@@ -215,7 +227,7 @@ class _TestimonialSectionState extends State<TestimonialSection> {
           left: 0,
           child: IconButton(
             onPressed: () {
-              if (_currentPage > 0) {
+              if (_currentPage > 0 && _pageController.hasClients) {
                 _pageController.previousPage(
                   duration: const Duration(milliseconds: 500),
                   curve: Curves.easeInOut,
@@ -241,7 +253,8 @@ class _TestimonialSectionState extends State<TestimonialSection> {
           right: 0,
           child: IconButton(
             onPressed: () {
-              if (_currentPage < _testimonials.length - 1) {
+              if (_currentPage < _testimonials.length - 1 &&
+                  _pageController.hasClients) {
                 _pageController.nextPage(
                   duration: const Duration(milliseconds: 500),
                   curve: Curves.easeInOut,
